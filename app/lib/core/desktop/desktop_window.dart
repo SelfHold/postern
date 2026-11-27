@@ -18,7 +18,7 @@ class DesktopWindow with WindowListener {
     if (!supported) return;
     await windowManager.ensureInitialized();
     const options = WindowOptions(
-      title: 'SSH Manager',
+      title: 'Postern',
       size: Size(1440, 900),
       minimumSize: Size(420, 560),
       center: true,

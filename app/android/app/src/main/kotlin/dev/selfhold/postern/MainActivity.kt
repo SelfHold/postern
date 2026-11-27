@@ -1,4 +1,4 @@
-package dev.sshmanager.sshmanager
+package dev.selfhold.postern
 
 import io.flutter.embedding.android.FlutterActivity
 

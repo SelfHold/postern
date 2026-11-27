@@ -5,9 +5,9 @@ import 'package:grpc/grpc.dart';
 
 import '../core/i18n.dart';
 import 'endpoint.dart';
-import 'rpc/gen/sshm.pbgrpc.dart' as pb;
+import 'rpc/gen/postern.pbgrpc.dart' as pb;
 
-export 'rpc/gen/sshm.pbgrpc.dart' show Host, Host_Auth, SyncState, SyncState_Phase, Entry, HostKey_Status, SafeKey;
+export 'rpc/gen/postern.pbgrpc.dart' show Host, Host_Auth, SyncState, SyncState_Phase, Entry, HostKey_Status, SafeKey;
 
 enum Conn { connecting, ready, failed }
 
@@ -27,7 +27,7 @@ class Core extends ChangeNotifier {
   pb.State? state;
   List<pb.Host> hosts = const [];
 
-  /// A host got the id CloudSync chose for it: (old id, new id).
+  /// A host got the id Shard chose for it: (old id, new id).
   final rekeys = StreamController<(String, String)>.broadcast();
 
   pb.CoreClient get api {

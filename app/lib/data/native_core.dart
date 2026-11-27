@@ -5,9 +5,9 @@ import 'dart:ffi';
 /// executable (app/linux/CMakeLists.txt).
 class NativeCore {
   NativeCore._(DynamicLibrary lib)
-    : _start = lib.lookupFunction<Pointer<Uint8> Function(), Pointer<Uint8> Function()>('SshmStart'),
-      _stop = lib.lookupFunction<Void Function(), void Function()>('SshmStop'),
-      _free = lib.lookupFunction<Void Function(Pointer<Uint8>), void Function(Pointer<Uint8>)>('SshmFree');
+    : _start = lib.lookupFunction<Pointer<Uint8> Function(), Pointer<Uint8> Function()>('PosternStart'),
+      _stop = lib.lookupFunction<Void Function(), void Function()>('PosternStop'),
+      _free = lib.lookupFunction<Void Function(Pointer<Uint8>), void Function(Pointer<Uint8>)>('PosternFree');
 
   static NativeCore? _instance;
 

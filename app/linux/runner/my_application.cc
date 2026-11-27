@@ -27,7 +27,7 @@ static void my_application_activate(GApplication* application) {
 
   // No system title bar: the app draws its own (window_manager, see
   // lib/core/desktop/desktop_window.dart). The title stays for the taskbar.
-  gtk_window_set_title(window, "SSH Manager");
+  gtk_window_set_title(window, "Postern");
   gtk_window_set_decorated(window, FALSE);
 
   gtk_window_set_default_size(window, 1440, 900);

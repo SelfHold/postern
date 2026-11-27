@@ -8,20 +8,20 @@ import (
 	"path/filepath"
 	"testing"
 
-	"sshmanager/core/cloudsync"
-	"sshmanager/core/cloudsync/pb"
+	"github.com/SelfHold/postern/core/shard"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
-// noCloudSync keeps tests away from a CloudSync running on this machine.
-type noCloudSync struct{}
+// noShard keeps tests away from a Shard running on this machine.
+type noShard struct{}
 
-func (noCloudSync) Dial(context.Context) (pb.ConnectorClient, io.Closer, error) {
-	return nil, nil, cloudsync.ErrNotRunning
+func (noShard) Dial(context.Context) (pb.ConnectorClient, io.Closer, error) {
+	return nil, nil, shard.ErrNotRunning
 }
 
 func TestStartStop(t *testing.T) {
 	dir := t.TempDir()
-	o := Options{Dir: dir, Listen: "unix:" + filepath.Join(dir, "s.sock"), Endpoint: filepath.Join(dir, "endpoint.json"), CloudSync: noCloudSync{}}
+	o := Options{Dir: dir, Listen: "unix:" + filepath.Join(dir, "s.sock"), Endpoint: filepath.Join(dir, "endpoint.json"), Shard: noShard{}}
 	c, err := Start(o)
 	if err != nil {
 		t.Fatal(err)

@@ -1,7 +1,7 @@
 // Package mobilebind runs the core inside the Android app ("gomobile
-// bind" → AAR, like CloudSync's and MegaChat's). Kotlin starts it from a
+// bind" → AAR, like Shard's and Parley's). Kotlin starts it from a
 // foreground service and hands the socket path and token to Flutter, which
-// talks to it over the same gRPC API as on desktops (core/embed). CloudSync
+// talks to it over the same gRPC API as on desktops (core/embed). Shard
 // is reached through its bound service: Kotlin implements Connector (one
 // call() per method, CONNECTOR.md § 3.2).
 package mobilebind
@@ -10,11 +10,11 @@ import (
 	"os"
 	"sync"
 
-	"sshmanager/core/cloudsync"
-	"sshmanager/core/embed"
+	"github.com/SelfHold/postern/core/embed"
+	"github.com/SelfHold/postern/core/shard"
 )
 
-// Connector is ICloudSyncConnector.call, implemented in Kotlin. It returns
+// Connector is IShardConnector.call, implemented in Kotlin. It returns
 // the serialized CallReply.
 type Connector interface {
 	Call(method string, request []byte) ([]byte, error)
@@ -26,7 +26,7 @@ var (
 	conn Connector
 )
 
-// SetConnector gives the core CloudSync's bound service (nil when it is
+// SetConnector gives the core Shard's bound service (nil when it is
 // not installed or got unbound).
 func SetConnector(c Connector) {
 	mu.Lock()
@@ -34,7 +34,7 @@ func SetConnector(c Connector) {
 	mu.Unlock()
 }
 
-func caller() cloudsync.Caller {
+func caller() shard.Caller {
 	mu.Lock()
 	defer mu.Unlock()
 	if conn == nil {
@@ -54,11 +54,11 @@ func Start(dataDir, filesDir, sock string) (string, error) {
 	}
 	os.Setenv("HOME", dataDir) // Android has none
 	c, err := embed.Start(embed.Options{
-		Dir:       dataDir,
-		Platform:  "android",
-		Listen:    "unix:" + sock,
-		Home:      filesDir,
-		CloudSync: cloudsync.BinderDialer{Get: caller},
+		Dir:      dataDir,
+		Platform: "android",
+		Listen:   "unix:" + sock,
+		Home:     filesDir,
+		Shard:    shard.BinderDialer{Get: caller},
 	})
 	if err != nil {
 		return "", err

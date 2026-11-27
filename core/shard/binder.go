@@ -1,4 +1,4 @@
-package cloudsync
+package shard
 
 import (
 	"context"
@@ -10,20 +10,20 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"sshmanager/core/cloudsync/pb"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
-// Caller is CloudSync's bound service on Android (CONNECTOR.md § 3.2),
+// Caller is Shard's bound service on Android (CONNECTOR.md § 3.2),
 // implemented in Kotlin: method is "Get", "Put", ...; the request and the
 // result are serialized messages, the result always a CallReply.
 type Caller interface {
 	Call(method string, request []byte) ([]byte, error)
 }
 
-// BinderDialer reaches CloudSync through a Caller. Watch is not offered
+// BinderDialer reaches Shard through a Caller. Watch is not offered
 // (it needs a callback interface); the 30 s rounds cover it.
 type BinderDialer struct {
-	// Get returns the bound service, or nil when CloudSync is missing.
+	// Get returns the bound service, or nil when Shard is missing.
 	Get func() Caller
 }
 
@@ -65,12 +65,12 @@ func (b binderConn) Invoke(ctx context.Context, method string, args, reply any, 
 	case r = <-done:
 	}
 	if r.err != nil {
-		// DeadObjectException and the like: CloudSync went away.
+		// DeadObjectException and the like: Shard went away.
 		return status.Error(codes.Unavailable, r.err.Error())
 	}
 	var cr pb.CallReply
 	if err := proto.Unmarshal(r.out, &cr); err != nil {
-		return status.Error(codes.Internal, "bad reply from CloudSync: "+err.Error())
+		return status.Error(codes.Internal, "bad reply from Shard: "+err.Error())
 	}
 	if cr.Code != 0 {
 		return status.Error(codes.Code(cr.Code), cr.Message)

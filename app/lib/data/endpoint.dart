@@ -24,7 +24,7 @@ abstract class CoreLauncher {
 /// Android: the core runs inside the app (gomobile AAR, mobilebind) in a
 /// foreground service; Kotlin starts it and hands over socket and token.
 class AndroidLauncher implements CoreLauncher {
-  static const _ch = MethodChannel('dev.sshmanager/core');
+  static const _ch = MethodChannel('dev.selfhold.postern/core');
 
   @override
   Future<Endpoint> endpoint({bool start = true}) async {
@@ -45,7 +45,7 @@ class DesktopLauncher implements CoreLauncher {
   static String get configDir {
     final xdg = Platform.environment['XDG_CONFIG_HOME'];
     final home = Platform.environment['HOME'] ?? '.';
-    return p.join(xdg != null && xdg.isNotEmpty ? xdg : p.join(home, '.config'), 'sshmanager');
+    return p.join(xdg != null && xdg.isNotEmpty ? xdg : p.join(home, '.config'), 'selfhold', 'postern');
   }
 
   @override

@@ -7,7 +7,7 @@ import 'package:xterm/xterm.dart';
 
 import '../core/i18n.dart';
 import 'core.dart';
-import 'rpc/gen/sshm.pbgrpc.dart' as pb;
+import 'rpc/gen/postern.pbgrpc.dart' as pb;
 
 enum SessionStatus { connecting, open, closed }
 

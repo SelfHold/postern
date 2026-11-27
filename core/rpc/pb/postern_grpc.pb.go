@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.2
 // - protoc             v7.36.1
-// source: sshm.proto
+// source: postern.proto
 
-// The API between the SSH Manager core (inside the app's process:
+// The API between the Postern core (inside the app's process:
 // desktopbind on desktops, mobilebind on Android) and its Flutter UI. The core owns SSH connections,
 // file transfers and the host list; the app only draws.
 
@@ -23,35 +23,35 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Core_GetState_FullMethodName      = "/sshm.v1.Core/GetState"
-	Core_Events_FullMethodName        = "/sshm.v1.Core/Events"
-	Core_ListHosts_FullMethodName     = "/sshm.v1.Core/ListHosts"
-	Core_SaveHost_FullMethodName      = "/sshm.v1.Core/SaveHost"
-	Core_DeleteHost_FullMethodName    = "/sshm.v1.Core/DeleteHost"
-	Core_ProbeHostKey_FullMethodName  = "/sshm.v1.Core/ProbeHostKey"
-	Core_TrustHostKey_FullMethodName  = "/sshm.v1.Core/TrustHostKey"
-	Core_Shell_FullMethodName         = "/sshm.v1.Core/Shell"
-	Core_ListDir_FullMethodName       = "/sshm.v1.Core/ListDir"
-	Core_MakeDir_FullMethodName       = "/sshm.v1.Core/MakeDir"
-	Core_Remove_FullMethodName        = "/sshm.v1.Core/Remove"
-	Core_Rename_FullMethodName        = "/sshm.v1.Core/Rename"
-	Core_Transfer_FullMethodName      = "/sshm.v1.Core/Transfer"
-	Core_EnableSync_FullMethodName    = "/sshm.v1.Core/EnableSync"
-	Core_DisableSync_FullMethodName   = "/sshm.v1.Core/DisableSync"
-	Core_SyncNow_FullMethodName       = "/sshm.v1.Core/SyncNow"
-	Core_RequestAccess_FullMethodName = "/sshm.v1.Core/RequestAccess"
-	Core_SafeKeys_FullMethodName      = "/sshm.v1.Core/SafeKeys"
+	Core_GetState_FullMethodName      = "/selfhold.postern.v1.Core/GetState"
+	Core_Events_FullMethodName        = "/selfhold.postern.v1.Core/Events"
+	Core_ListHosts_FullMethodName     = "/selfhold.postern.v1.Core/ListHosts"
+	Core_SaveHost_FullMethodName      = "/selfhold.postern.v1.Core/SaveHost"
+	Core_DeleteHost_FullMethodName    = "/selfhold.postern.v1.Core/DeleteHost"
+	Core_ProbeHostKey_FullMethodName  = "/selfhold.postern.v1.Core/ProbeHostKey"
+	Core_TrustHostKey_FullMethodName  = "/selfhold.postern.v1.Core/TrustHostKey"
+	Core_Shell_FullMethodName         = "/selfhold.postern.v1.Core/Shell"
+	Core_ListDir_FullMethodName       = "/selfhold.postern.v1.Core/ListDir"
+	Core_MakeDir_FullMethodName       = "/selfhold.postern.v1.Core/MakeDir"
+	Core_Remove_FullMethodName        = "/selfhold.postern.v1.Core/Remove"
+	Core_Rename_FullMethodName        = "/selfhold.postern.v1.Core/Rename"
+	Core_Transfer_FullMethodName      = "/selfhold.postern.v1.Core/Transfer"
+	Core_EnableSync_FullMethodName    = "/selfhold.postern.v1.Core/EnableSync"
+	Core_DisableSync_FullMethodName   = "/selfhold.postern.v1.Core/DisableSync"
+	Core_SyncNow_FullMethodName       = "/selfhold.postern.v1.Core/SyncNow"
+	Core_RequestAccess_FullMethodName = "/selfhold.postern.v1.Core/RequestAccess"
+	Core_SafeKeys_FullMethodName      = "/selfhold.postern.v1.Core/SafeKeys"
 )
 
 // CoreClient is the client API for Core service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CoreClient interface {
-	// State: versions and CloudSync status.
+	// State: versions and Shard status.
 	GetState(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*State, error)
 	// Events streams changes (hosts, sync state).
 	Events(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Event], error)
-	// --- hosts (synced through CloudSync when sync is on) -------------------
+	// --- hosts (synced through Shard when sync is on) -------------------
 	ListHosts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*HostList, error)
 	// SaveHost creates (id = "") or replaces a host.
 	SaveHost(ctx context.Context, in *Host, opts ...grpc.CallOption) (*Host, error)
@@ -73,18 +73,18 @@ type CoreClient interface {
 	// Transfer copies (or moves) files and folders between two sides and
 	// reports progress; cancelling the call stops it.
 	Transfer(ctx context.Context, in *TransferRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[TransferProgress], error)
-	// --- CloudSync ------------------------------------------------------
-	// EnableSync asks CloudSync for pairing (if needed) and returns the code
+	// --- Shard ------------------------------------------------------
+	// EnableSync asks Shard for pairing (if needed) and returns the code
 	// to show; the result comes as a SYNC event.
 	EnableSync(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SyncState, error)
 	DisableSync(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SyncState, error)
 	// SyncNow pushes local changes and pulls remote ones.
 	SyncNow(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SyncState, error)
-	// RequestAccess asks CloudSync (while paired) for the shared server list
+	// RequestAccess asks Shard (while paired) for the shared server list
 	// and the SSH keys of its safe; the code to show comes back.
 	RequestAccess(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SyncState, error)
-	// SafeKeys lists the SSH keys of CloudSync's password safe (public part
-	// only); needs sync on and the "ssh_keys" permission in CloudSync.
+	// SafeKeys lists the SSH keys of Shard's password safe (public part
+	// only); needs sync on and the "ssh_keys" permission in Shard.
 	SafeKeys(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*SafeKeyList, error)
 }
 
@@ -301,11 +301,11 @@ func (c *coreClient) SafeKeys(ctx context.Context, in *Empty, opts ...grpc.CallO
 // All implementations must embed UnimplementedCoreServer
 // for forward compatibility.
 type CoreServer interface {
-	// State: versions and CloudSync status.
+	// State: versions and Shard status.
 	GetState(context.Context, *Empty) (*State, error)
 	// Events streams changes (hosts, sync state).
 	Events(*Empty, grpc.ServerStreamingServer[Event]) error
-	// --- hosts (synced through CloudSync when sync is on) -------------------
+	// --- hosts (synced through Shard when sync is on) -------------------
 	ListHosts(context.Context, *Empty) (*HostList, error)
 	// SaveHost creates (id = "") or replaces a host.
 	SaveHost(context.Context, *Host) (*Host, error)
@@ -327,18 +327,18 @@ type CoreServer interface {
 	// Transfer copies (or moves) files and folders between two sides and
 	// reports progress; cancelling the call stops it.
 	Transfer(*TransferRequest, grpc.ServerStreamingServer[TransferProgress]) error
-	// --- CloudSync ------------------------------------------------------
-	// EnableSync asks CloudSync for pairing (if needed) and returns the code
+	// --- Shard ------------------------------------------------------
+	// EnableSync asks Shard for pairing (if needed) and returns the code
 	// to show; the result comes as a SYNC event.
 	EnableSync(context.Context, *Empty) (*SyncState, error)
 	DisableSync(context.Context, *Empty) (*SyncState, error)
 	// SyncNow pushes local changes and pulls remote ones.
 	SyncNow(context.Context, *Empty) (*SyncState, error)
-	// RequestAccess asks CloudSync (while paired) for the shared server list
+	// RequestAccess asks Shard (while paired) for the shared server list
 	// and the SSH keys of its safe; the code to show comes back.
 	RequestAccess(context.Context, *Empty) (*SyncState, error)
-	// SafeKeys lists the SSH keys of CloudSync's password safe (public part
-	// only); needs sync on and the "ssh_keys" permission in CloudSync.
+	// SafeKeys lists the SSH keys of Shard's password safe (public part
+	// only); needs sync on and the "ssh_keys" permission in Shard.
 	SafeKeys(context.Context, *Empty) (*SafeKeyList, error)
 	mustEmbedUnimplementedCoreServer()
 }
@@ -728,7 +728,7 @@ func _Core_SafeKeys_Handler(srv interface{}, ctx context.Context, dec func(inter
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Core_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sshm.v1.Core",
+	ServiceName: "selfhold.postern.v1.Core",
 	HandlerType: (*CoreServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -810,5 +810,5 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "sshm.proto",
+	Metadata: "postern.proto",
 }

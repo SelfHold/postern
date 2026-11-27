@@ -1,4 +1,4 @@
-package cloudsync
+package shard
 
 import (
 	"context"
@@ -14,8 +14,8 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"sshmanager/core/cloudsync/pb"
-	"sshmanager/core/hosts"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
 // Scopes of the Connector API this app asks for (CONNECTOR.md § 13–14).
@@ -24,15 +24,15 @@ const (
 	ScopeSSHKeys = "ssh_keys"
 )
 
-// modeServers: hosts live in CloudSync's shared server list (scope
+// modeServers: hosts live in Shard's shared server list (scope
 // "servers"); otherwise in this app's own record hosts.json.
 const modeServers = "servers"
 
 // Keys of Server.extra owned by this app. Other apps' keys are kept as is.
 const extraStartDir = AppID + ".start_dir"
 
-// ErrNoKeys: CloudSync does not give this app the SSH keys of its safe.
-var ErrNoKeys = errors.New("CloudSync does not share its SSH keys with this app")
+// ErrNoKeys: Shard does not give this app the SSH keys of its safe.
+var ErrNoKeys = errors.New("Shard does not share its SSH keys with this app")
 
 type serverSync struct {
 	Rev  string `json:"rev"`
@@ -164,7 +164,7 @@ func (s *Syncer) syncServers(ctx context.Context, cli pb.ConnectorClient) error 
 		revs = map[string]serverSync{}
 	}
 
-	// 1. What changed in CloudSync (nil = removed).
+	// 1. What changed in Shard (nil = removed).
 	remote := map[string]*pb.Server{}
 	full := cursor == ""
 	if !full {
@@ -276,7 +276,7 @@ func (s *Syncer) syncServers(ctx context.Context, cli pb.ConnectorClient) error 
 		}
 		sv, base := toServer(h), k.Rev
 		if !ok {
-			sv.Id, base = "", "" // new: CloudSync picks the id
+			sv.Id, base = "", "" // new: Shard picks the id
 		}
 		out, err := cli.PutServer(ctx, &pb.PutServerRequest{Server: sv, Base: base})
 		if status.Code(err) == codes.Aborted {
@@ -342,7 +342,7 @@ func (s *Syncer) getServers(ctx context.Context, cli pb.ConnectorClient, ids []s
 	return out, nil
 }
 
-// rekey gives a local host the id CloudSync chose for it.
+// rekey gives a local host the id Shard chose for it.
 func (s *Syncer) rekey(from, to string) error {
 	if from == to {
 		return nil
@@ -450,7 +450,7 @@ func (s *Syncer) migrate(ctx context.Context, cli pb.ConnectorClient) error {
 	return nil
 }
 
-// SafeKeys lists the SSH keys of CloudSync's safe (no secrets).
+// SafeKeys lists the SSH keys of Shard's safe (no secrets).
 func (s *Syncer) SafeKeys(ctx context.Context) ([]*pb.SshKey, error) {
 	cli, closer, err := s.ready(ctx, ScopeSSHKeys)
 	if err != nil {
@@ -481,16 +481,16 @@ func (s *Syncer) FetchKey(ctx context.Context, id string) (string, string, error
 			return k.PrivateKey, k.Passphrase, nil
 		}
 	}
-	return "", "", errors.New("the key is no longer in CloudSync: pick another one")
+	return "", "", errors.New("the key is no longer in Shard: pick another one")
 }
 
-// ready dials CloudSync and checks that sync is on and scope granted.
+// ready dials Shard and checks that sync is on and scope granted.
 func (s *Syncer) ready(ctx context.Context, scope string) (pb.ConnectorClient, func(), error) {
 	s.mu.Lock()
 	on := s.st.Enabled
 	s.mu.Unlock()
 	if !on {
-		return nil, nil, errors.New("switch CloudSync sync on to use its keys")
+		return nil, nil, errors.New("switch Shard sync on to use its keys")
 	}
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	cli, closer, err := s.dialer.Dial(ctx)
@@ -507,7 +507,7 @@ func (s *Syncer) ready(ctx context.Context, scope string) (pb.ConnectorClient, f
 	switch {
 	case h.State == pb.VaultState_LOCKED:
 		done()
-		return nil, nil, errors.New("CloudSync is locked: unlock it first")
+		return nil, nil, errors.New("Shard is locked: unlock it first")
 	case !slices.Contains(h.Scopes, scope):
 		done()
 		return nil, nil, ErrNoKeys
@@ -520,7 +520,7 @@ func keyErr(err error) error {
 	case codes.PermissionDenied, codes.Unimplemented:
 		return ErrNoKeys
 	case codes.FailedPrecondition:
-		return errors.New("CloudSync is locked: unlock it first")
+		return errors.New("Shard is locked: unlock it first")
 	}
 	return errors.New(errText(err))
 }

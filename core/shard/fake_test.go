@@ -1,4 +1,4 @@
-package cloudsync
+package shard
 
 import (
 	"context"
@@ -15,10 +15,10 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	"sshmanager/core/cloudsync/pb"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
-// fakeVault is one CloudSync vault shared by several fake devices.
+// fakeVault is one Shard vault shared by several fake devices.
 type fakeVault struct {
 	mu      sync.Mutex
 	seq     int
@@ -44,7 +44,7 @@ func newVault(scopes ...string) *fakeVault {
 
 func (v *fakeVault) rev() string { v.seq++; return "r" + strconv.Itoa(v.seq) }
 
-// fakeDevice is CloudSync on one device.
+// fakeDevice is Shard on one device.
 type fakeDevice struct {
 	v       *fakeVault
 	name    string

@@ -1,6 +1,6 @@
 // This is a generated file - do not edit.
 //
-// Generated from sshm.proto.
+// Generated from postern.proto.
 
 // @dart = 3.3
 
@@ -36,7 +36,7 @@ const State$json = {
       '3': 4,
       '4': 1,
       '5': 11,
-      '6': '.sshm.v1.SyncState',
+      '6': '.selfhold.postern.v1.SyncState',
       '10': 'sync'
     },
   ],
@@ -45,8 +45,8 @@ const State$json = {
 /// Descriptor for `State`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List stateDescriptor = $convert.base64Decode(
     'CgVTdGF0ZRIhCgxjb3JlX3ZlcnNpb24YASABKAlSC2NvcmVWZXJzaW9uEh0KCmNvcmVfYnVpbG'
-    'QYAiABKAlSCWNvcmVCdWlsZBIaCghwbGF0Zm9ybRgDIAEoCVIIcGxhdGZvcm0SJgoEc3luYxgE'
-    'IAEoCzISLnNzaG0udjEuU3luY1N0YXRlUgRzeW5j');
+    'QYAiABKAlSCWNvcmVCdWlsZBIaCghwbGF0Zm9ybRgDIAEoCVIIcGxhdGZvcm0SMgoEc3luYxgE'
+    'IAEoCzIeLnNlbGZob2xkLnBvc3Rlcm4udjEuU3luY1N0YXRlUgRzeW5j');
 
 @$core.Deprecated('Use syncStateDescriptor instead')
 const SyncState$json = {
@@ -57,7 +57,7 @@ const SyncState$json = {
       '3': 1,
       '4': 1,
       '5': 14,
-      '6': '.sshm.v1.SyncState.Phase',
+      '6': '.selfhold.postern.v1.SyncState.Phase',
       '10': 'phase'
     },
     {'1': 'enabled', '3': 2, '4': 1, '5': 8, '10': 'enabled'},
@@ -91,15 +91,15 @@ const SyncState_Phase$json = {
 
 /// Descriptor for `SyncState`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List syncStateDescriptor = $convert.base64Decode(
-    'CglTeW5jU3RhdGUSLgoFcGhhc2UYASABKA4yGC5zc2htLnYxLlN5bmNTdGF0ZS5QaGFzZVIFcG'
-    'hhc2USGAoHZW5hYmxlZBgCIAEoCFIHZW5hYmxlZBIcCglhdmFpbGFibGUYAyABKAhSCWF2YWls'
-    'YWJsZRIhCgxwYWlyaW5nX2NvZGUYBCABKAlSC3BhaXJpbmdDb2RlEhQKBWVycm9yGAUgASgJUg'
-    'VlcnJvchIYCgdwZW5kaW5nGAYgASgIUgdwZW5kaW5nEiAKDGxhc3Rfc3luY19tcxgHIAEoA1IK'
-    'bGFzdFN5bmNNcxIfCgtkZXZpY2VfbmFtZRgIIAEoCVIKZGV2aWNlTmFtZRIlCg5zaGFyZWRfc2'
-    'VydmVycxgJIAEoCFINc2hhcmVkU2VydmVycxIbCglzYWZlX2tleXMYCiABKAhSCHNhZmVLZXlz'
-    'IoMBCgVQaGFzZRIVChFQSEFTRV9VTlNQRUNJRklFRBAAEgcKA09GRhABEg8KC05PVF9SVU5OSU'
-    '5HEAISDAoITk9fVkFVTFQQAxIKCgZMT0NLRUQQBBILCgdQQUlSSU5HEAUSCwoHT0ZGTElORRAG'
-    'EgoKBlNZTkNFRBAHEgkKBUVSUk9SEAg=');
+    'CglTeW5jU3RhdGUSOgoFcGhhc2UYASABKA4yJC5zZWxmaG9sZC5wb3N0ZXJuLnYxLlN5bmNTdG'
+    'F0ZS5QaGFzZVIFcGhhc2USGAoHZW5hYmxlZBgCIAEoCFIHZW5hYmxlZBIcCglhdmFpbGFibGUY'
+    'AyABKAhSCWF2YWlsYWJsZRIhCgxwYWlyaW5nX2NvZGUYBCABKAlSC3BhaXJpbmdDb2RlEhQKBW'
+    'Vycm9yGAUgASgJUgVlcnJvchIYCgdwZW5kaW5nGAYgASgIUgdwZW5kaW5nEiAKDGxhc3Rfc3lu'
+    'Y19tcxgHIAEoA1IKbGFzdFN5bmNNcxIfCgtkZXZpY2VfbmFtZRgIIAEoCVIKZGV2aWNlTmFtZR'
+    'IlCg5zaGFyZWRfc2VydmVycxgJIAEoCFINc2hhcmVkU2VydmVycxIbCglzYWZlX2tleXMYCiAB'
+    'KAhSCHNhZmVLZXlzIoMBCgVQaGFzZRIVChFQSEFTRV9VTlNQRUNJRklFRBAAEgcKA09GRhABEg'
+    '8KC05PVF9SVU5OSU5HEAISDAoITk9fVkFVTFQQAxIKCgZMT0NLRUQQBBILCgdQQUlSSU5HEAUS'
+    'CwoHT0ZGTElORRAGEgoKBlNZTkNFRBAHEgkKBUVSUk9SEAg=');
 
 @$core.Deprecated('Use eventDescriptor instead')
 const Event$json = {
@@ -110,7 +110,7 @@ const Event$json = {
       '3': 1,
       '4': 1,
       '5': 14,
-      '6': '.sshm.v1.Event.Kind',
+      '6': '.selfhold.postern.v1.Event.Kind',
       '10': 'kind'
     },
     {'1': 'message', '3': 2, '4': 1, '5': 9, '10': 'message'},
@@ -130,9 +130,9 @@ const Event_Kind$json = {
 
 /// Descriptor for `Event`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List eventDescriptor = $convert.base64Decode(
-    'CgVFdmVudBInCgRraW5kGAEgASgOMhMuc3NobS52MS5FdmVudC5LaW5kUgRraW5kEhgKB21lc3'
-    'NhZ2UYAiABKAlSB21lc3NhZ2UiMQoES2luZBIUChBLSU5EX1VOU1BFQ0lGSUVEEAASCQoFSE9T'
-    'VFMQARIICgRTWU5DEAI=');
+    'CgVFdmVudBIzCgRraW5kGAEgASgOMh8uc2VsZmhvbGQucG9zdGVybi52MS5FdmVudC5LaW5kUg'
+    'RraW5kEhgKB21lc3NhZ2UYAiABKAlSB21lc3NhZ2UiMQoES2luZBIUChBLSU5EX1VOU1BFQ0lG'
+    'SUVEEAASCQoFSE9TVFMQARIICgRTWU5DEAI=');
 
 @$core.Deprecated('Use hostDescriptor instead')
 const Host$json = {
@@ -149,7 +149,7 @@ const Host$json = {
       '3': 7,
       '4': 1,
       '5': 14,
-      '6': '.sshm.v1.Host.Auth',
+      '6': '.selfhold.postern.v1.Host.Auth',
       '10': 'auth'
     },
     {'1': 'password', '3': 8, '4': 1, '5': 9, '10': 'password'},
@@ -182,14 +182,14 @@ const Host_Auth$json = {
 final $typed_data.Uint8List hostDescriptor = $convert.base64Decode(
     'CgRIb3N0Eg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhQKBWdyb3VwGAMgAS'
     'gJUgVncm91cBIYCgdhZGRyZXNzGAQgASgJUgdhZGRyZXNzEhIKBHBvcnQYBSABKA1SBHBvcnQS'
-    'EgoEdXNlchgGIAEoCVIEdXNlchImCgRhdXRoGAcgASgOMhIuc3NobS52MS5Ib3N0LkF1dGhSBG'
-    'F1dGgSGgoIcGFzc3dvcmQYCCABKAlSCHBhc3N3b3JkEh8KC3ByaXZhdGVfa2V5GAkgASgJUgpw'
-    'cml2YXRlS2V5Eh4KCnBhc3NwaHJhc2UYCiABKAlSCnBhc3NwaHJhc2USGwoJaG9zdF9rZXlzGA'
-    'sgAygJUghob3N0S2V5cxIdCgp1cGRhdGVkX21zGAwgASgDUgl1cGRhdGVkTXMSFAoFbm90ZXMY'
-    'DSABKAlSBW5vdGVzEhsKCXN0YXJ0X2RpchgOIAEoCVIIc3RhcnREaXISFQoGa2V5X2lkGA8gAS'
-    'gJUgVrZXlJZBISCgR0YWdzGBAgAygJUgR0YWdzEhcKB2p1bXBfaWQYESABKAlSBmp1bXBJZCJM'
-    'CgRBdXRoEhQKEEFVVEhfVU5TUEVDSUZJRUQQABIMCghQQVNTV09SRBABEgcKA0tFWRACEgkKBU'
-    'FHRU5UEAMSDAoIU0FGRV9LRVkQBA==');
+    'EgoEdXNlchgGIAEoCVIEdXNlchIyCgRhdXRoGAcgASgOMh4uc2VsZmhvbGQucG9zdGVybi52MS'
+    '5Ib3N0LkF1dGhSBGF1dGgSGgoIcGFzc3dvcmQYCCABKAlSCHBhc3N3b3JkEh8KC3ByaXZhdGVf'
+    'a2V5GAkgASgJUgpwcml2YXRlS2V5Eh4KCnBhc3NwaHJhc2UYCiABKAlSCnBhc3NwaHJhc2USGw'
+    'oJaG9zdF9rZXlzGAsgAygJUghob3N0S2V5cxIdCgp1cGRhdGVkX21zGAwgASgDUgl1cGRhdGVk'
+    'TXMSFAoFbm90ZXMYDSABKAlSBW5vdGVzEhsKCXN0YXJ0X2RpchgOIAEoCVIIc3RhcnREaXISFQ'
+    'oGa2V5X2lkGA8gASgJUgVrZXlJZBISCgR0YWdzGBAgAygJUgR0YWdzEhcKB2p1bXBfaWQYESAB'
+    'KAlSBmp1bXBJZCJMCgRBdXRoEhQKEEFVVEhfVU5TUEVDSUZJRUQQABIMCghQQVNTV09SRBABEg'
+    'cKA0tFWRACEgkKBUFHRU5UEAMSDAoIU0FGRV9LRVkQBA==');
 
 @$core.Deprecated('Use hostListDescriptor instead')
 const HostList$json = {
@@ -200,7 +200,7 @@ const HostList$json = {
       '3': 1,
       '4': 3,
       '5': 11,
-      '6': '.sshm.v1.Host',
+      '6': '.selfhold.postern.v1.Host',
       '10': 'hosts'
     },
   ],
@@ -208,7 +208,8 @@ const HostList$json = {
 
 /// Descriptor for `HostList`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List hostListDescriptor = $convert.base64Decode(
-    'CghIb3N0TGlzdBIjCgVob3N0cxgBIAMoCzINLnNzaG0udjEuSG9zdFIFaG9zdHM=');
+    'CghIb3N0TGlzdBIvCgVob3N0cxgBIAMoCzIZLnNlbGZob2xkLnBvc3Rlcm4udjEuSG9zdFIFaG'
+    '9zdHM=');
 
 @$core.Deprecated('Use hostRefDescriptor instead')
 const HostRef$json = {
@@ -231,7 +232,7 @@ const HostKey$json = {
       '3': 1,
       '4': 1,
       '5': 14,
-      '6': '.sshm.v1.HostKey.Status',
+      '6': '.selfhold.postern.v1.HostKey.Status',
       '10': 'status'
     },
     {'1': 'key', '3': 2, '4': 1, '5': 9, '10': 'key'},
@@ -254,10 +255,10 @@ const HostKey_Status$json = {
 
 /// Descriptor for `HostKey`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List hostKeyDescriptor = $convert.base64Decode(
-    'CgdIb3N0S2V5Ei8KBnN0YXR1cxgBIAEoDjIXLnNzaG0udjEuSG9zdEtleS5TdGF0dXNSBnN0YX'
-    'R1cxIQCgNrZXkYAiABKAlSA2tleRIgCgtmaW5nZXJwcmludBgDIAEoCVILZmluZ2VycHJpbnQS'
-    'EgoEdHlwZRgEIAEoCVIEdHlwZSJFCgZTdGF0dXMSFgoSU1RBVFVTX1VOU1BFQ0lGSUVEEAASCQ'
-    'oFS05PV04QARILCgdVTktOT1dOEAISCwoHQ0hBTkdFRBAD');
+    'CgdIb3N0S2V5EjsKBnN0YXR1cxgBIAEoDjIjLnNlbGZob2xkLnBvc3Rlcm4udjEuSG9zdEtleS'
+    '5TdGF0dXNSBnN0YXR1cxIQCgNrZXkYAiABKAlSA2tleRIgCgtmaW5nZXJwcmludBgDIAEoCVIL'
+    'ZmluZ2VycHJpbnQSEgoEdHlwZRgEIAEoCVIEdHlwZSJFCgZTdGF0dXMSFgoSU1RBVFVTX1VOU1'
+    'BFQ0lGSUVEEAASCQoFS05PV04QARILCgdVTktOT1dOEAISCwoHQ0hBTkdFRBAD');
 
 @$core.Deprecated('Use trustRequestDescriptor instead')
 const TrustRequest$json = {
@@ -283,7 +284,7 @@ const ShellIn$json = {
       '3': 1,
       '4': 1,
       '5': 11,
-      '6': '.sshm.v1.ShellIn.Open',
+      '6': '.selfhold.postern.v1.ShellIn.Open',
       '9': 0,
       '10': 'open'
     },
@@ -293,7 +294,7 @@ const ShellIn$json = {
       '3': 3,
       '4': 1,
       '5': 11,
-      '6': '.sshm.v1.ShellIn.Resize',
+      '6': '.selfhold.postern.v1.ShellIn.Resize',
       '9': 0,
       '10': 'resize'
     },
@@ -325,11 +326,12 @@ const ShellIn_Resize$json = {
 
 /// Descriptor for `ShellIn`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List shellInDescriptor = $convert.base64Decode(
-    'CgdTaGVsbEluEisKBG9wZW4YASABKAsyFS5zc2htLnYxLlNoZWxsSW4uT3BlbkgAUgRvcGVuEh'
-    'QKBGRhdGEYAiABKAxIAFIEZGF0YRIxCgZyZXNpemUYAyABKAsyFy5zc2htLnYxLlNoZWxsSW4u'
-    'UmVzaXplSABSBnJlc2l6ZRpHCgRPcGVuEhcKB2hvc3RfaWQYASABKAlSBmhvc3RJZBISCgRjb2'
-    'xzGAIgASgNUgRjb2xzEhIKBHJvd3MYAyABKA1SBHJvd3MaMAoGUmVzaXplEhIKBGNvbHMYASAB'
-    'KA1SBGNvbHMSEgoEcm93cxgCIAEoDVIEcm93c0IFCgNtc2c=');
+    'CgdTaGVsbEluEjcKBG9wZW4YASABKAsyIS5zZWxmaG9sZC5wb3N0ZXJuLnYxLlNoZWxsSW4uT3'
+    'BlbkgAUgRvcGVuEhQKBGRhdGEYAiABKAxIAFIEZGF0YRI9CgZyZXNpemUYAyABKAsyIy5zZWxm'
+    'aG9sZC5wb3N0ZXJuLnYxLlNoZWxsSW4uUmVzaXplSABSBnJlc2l6ZRpHCgRPcGVuEhcKB2hvc3'
+    'RfaWQYASABKAlSBmhvc3RJZBISCgRjb2xzGAIgASgNUgRjb2xzEhIKBHJvd3MYAyABKA1SBHJv'
+    'd3MaMAoGUmVzaXplEhIKBGNvbHMYASABKA1SBGNvbHMSEgoEcm93cxgCIAEoDVIEcm93c0IFCg'
+    'Ntc2c=');
 
 @$core.Deprecated('Use shellOutDescriptor instead')
 const ShellOut$json = {
@@ -391,7 +393,7 @@ const DirListing$json = {
       '3': 2,
       '4': 3,
       '5': 11,
-      '6': '.sshm.v1.Entry',
+      '6': '.selfhold.postern.v1.Entry',
       '10': 'entries'
     },
   ],
@@ -399,8 +401,8 @@ const DirListing$json = {
 
 /// Descriptor for `DirListing`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List dirListingDescriptor = $convert.base64Decode(
-    'CgpEaXJMaXN0aW5nEhIKBHBhdGgYASABKAlSBHBhdGgSKAoHZW50cmllcxgCIAMoCzIOLnNzaG'
-    '0udjEuRW50cnlSB2VudHJpZXM=');
+    'CgpEaXJMaXN0aW5nEhIKBHBhdGgYASABKAlSBHBhdGgSNAoHZW50cmllcxgCIAMoCzIaLnNlbG'
+    'Zob2xkLnBvc3Rlcm4udjEuRW50cnlSB2VudHJpZXM=');
 
 @$core.Deprecated('Use pathRequestDescriptor instead')
 const PathRequest$json = {
@@ -512,7 +514,7 @@ const SafeKeyList$json = {
       '3': 1,
       '4': 3,
       '5': 11,
-      '6': '.sshm.v1.SafeKey',
+      '6': '.selfhold.postern.v1.SafeKey',
       '10': 'keys'
     },
     {'1': 'unavailable', '3': 2, '4': 1, '5': 9, '10': 'unavailable'},
@@ -521,5 +523,5 @@ const SafeKeyList$json = {
 
 /// Descriptor for `SafeKeyList`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List safeKeyListDescriptor = $convert.base64Decode(
-    'CgtTYWZlS2V5TGlzdBIkCgRrZXlzGAEgAygLMhAuc3NobS52MS5TYWZlS2V5UgRrZXlzEiAKC3'
-    'VuYXZhaWxhYmxlGAIgASgJUgt1bmF2YWlsYWJsZQ==');
+    'CgtTYWZlS2V5TGlzdBIwCgRrZXlzGAEgAygLMhwuc2VsZmhvbGQucG9zdGVybi52MS5TYWZlS2'
+    'V5UgRrZXlzEiAKC3VuYXZhaWxhYmxlGAIgASgJUgt1bmF2YWlsYWJsZQ==');

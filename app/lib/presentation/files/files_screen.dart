@@ -8,7 +8,7 @@ import '../../core/theme/colors.dart';
 import '../../core/theme/layout.dart';
 import '../../core/theme/typography.dart';
 import '../../data/core.dart';
-import '../../data/rpc/gen/sshm.pb.dart' as pb;
+import '../../data/rpc/gen/postern.pb.dart' as pb;
 import '../common/hm.dart';
 import '../hosts/trust.dart';
 import 'files_model.dart';

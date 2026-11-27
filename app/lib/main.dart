@@ -12,5 +12,5 @@ Future<void> main() async {
   await DesktopWindow.instance.init();
   core = Core(CoreLauncher.forPlatform());
   core.connect();
-  runApp(const SshManagerApp());
+  runApp(const PosternApp());
 }

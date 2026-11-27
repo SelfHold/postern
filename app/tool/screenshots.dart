@@ -9,16 +9,16 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:sshmanager/app.dart';
-import 'package:sshmanager/core/settings.dart';
-import 'package:sshmanager/data/core.dart';
-import 'package:sshmanager/data/endpoint.dart';
-import 'package:sshmanager/data/rpc/gen/sshm.pb.dart' as pb;
-import 'package:sshmanager/data/sessions.dart';
-import 'package:sshmanager/presentation/files/files_screen.dart';
-import 'package:sshmanager/presentation/hosts/host_editor.dart';
-import 'package:sshmanager/presentation/hosts/trust.dart';
-import 'package:sshmanager/presentation/shell/app_shell.dart';
+import 'package:postern/app.dart';
+import 'package:postern/core/settings.dart';
+import 'package:postern/data/core.dart';
+import 'package:postern/data/endpoint.dart';
+import 'package:postern/data/rpc/gen/postern.pb.dart' as pb;
+import 'package:postern/data/sessions.dart';
+import 'package:postern/presentation/files/files_screen.dart';
+import 'package:postern/presentation/hosts/host_editor.dart';
+import 'package:postern/presentation/hosts/trust.dart';
+import 'package:postern/presentation/shell/app_shell.dart';
 
 final _boundary = GlobalKey();
 // One key per frame: a shared GlobalKey would carry the shell's state (the
@@ -41,7 +41,7 @@ Future<void> main() async {
     await core.refresh();
     final s = sessions.open(core.host(dev.id)!);
     await Future<void>.delayed(const Duration(seconds: 1));
-    s.terminal.textInput('echo hello from SSH Manager\r');
+    s.terminal.textInput('echo hello from Postern\r');
     files.showHost(dev.id);
     files.right.load('/usr');
     files.left.load('/etc');
@@ -51,7 +51,7 @@ Future<void> main() async {
   runApp(
     ValueListenableBuilder(
       valueListenable: frame,
-      builder: (_, f, _) => SshManagerApp(
+      builder: (_, f, _) => PosternApp(
         key: ValueKey(f),
         home: AppShell(key: _shells.putIfAbsent(f.$3, GlobalKey.new), initial: f.$2),
         frame: (context, child) {

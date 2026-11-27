@@ -7,7 +7,7 @@ import 'package:path/path.dart' as p;
 
 import '../../core/i18n.dart';
 import '../../data/core.dart';
-import '../../data/rpc/gen/sshm.pb.dart' as pb;
+import '../../data/rpc/gen/postern.pb.dart' as pb;
 
 /// ".." at the top of a listing.
 final Entry parentEntry = Entry(name: '..', dir: true);

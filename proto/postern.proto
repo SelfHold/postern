@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-// The API between the SSH Manager core (inside the app's process:
+// The API between the Postern core (inside the app's process:
 // desktopbind on desktops, mobilebind on Android) and its Flutter UI. The core owns SSH connections,
 // file transfers and the host list; the app only draws.
-package sshm.v1;
+package selfhold.postern.v1;
 
-option go_package = "sshmanager/core/rpc/pb";
+option go_package = "github.com/SelfHold/postern/core/rpc/pb";
 
 service Core {
-  // State: versions and CloudSync status.
+  // State: versions and Shard status.
   rpc GetState(Empty) returns (State);
   // Events streams changes (hosts, sync state).
   rpc Events(Empty) returns (stream Event);
 
-  // --- hosts (synced through CloudSync when sync is on) -------------------
+  // --- hosts (synced through Shard when sync is on) -------------------
   rpc ListHosts(Empty) returns (HostList);
   // SaveHost creates (id = "") or replaces a host.
   rpc SaveHost(Host) returns (Host);
@@ -38,18 +38,18 @@ service Core {
   // reports progress; cancelling the call stops it.
   rpc Transfer(TransferRequest) returns (stream TransferProgress);
 
-  // --- CloudSync ------------------------------------------------------
-  // EnableSync asks CloudSync for pairing (if needed) and returns the code
+  // --- Shard ------------------------------------------------------
+  // EnableSync asks Shard for pairing (if needed) and returns the code
   // to show; the result comes as a SYNC event.
   rpc EnableSync(Empty) returns (SyncState);
   rpc DisableSync(Empty) returns (SyncState);
   // SyncNow pushes local changes and pulls remote ones.
   rpc SyncNow(Empty) returns (SyncState);
-  // RequestAccess asks CloudSync (while paired) for the shared server list
+  // RequestAccess asks Shard (while paired) for the shared server list
   // and the SSH keys of its safe; the code to show comes back.
   rpc RequestAccess(Empty) returns (SyncState);
-  // SafeKeys lists the SSH keys of CloudSync's password safe (public part
-  // only); needs sync on and the "ssh_keys" permission in CloudSync.
+  // SafeKeys lists the SSH keys of Shard's password safe (public part
+  // only); needs sync on and the "ssh_keys" permission in Shard.
   rpc SafeKeys(Empty) returns (SafeKeyList);
 }
 
@@ -66,24 +66,24 @@ message SyncState {
   enum Phase {
     PHASE_UNSPECIFIED = 0;
     OFF = 1;          // sync switched off
-    NOT_RUNNING = 2;  // switched on, CloudSync not found
+    NOT_RUNNING = 2;  // switched on, Shard not found
     NO_VAULT = 3;
     LOCKED = 4;
-    PAIRING = 5;      // waiting for the user in CloudSync (code)
+    PAIRING = 5;      // waiting for the user in Shard (code)
     OFFLINE = 6;      // reads work, writes wait
     SYNCED = 7;
     ERROR = 8;
   }
   Phase phase = 1;
   bool enabled = 2;
-  bool available = 3;      // CloudSync answers on this device
+  bool available = 3;      // Shard answers on this device
   string pairing_code = 4; // "123 456" while PAIRING
   string error = 5;
   bool pending = 6;        // local changes not uploaded yet
   int64 last_sync_ms = 7;
   string device_name = 8;
-  bool shared_servers = 9; // hosts are CloudSync's shared server list
-  bool safe_keys = 10;     // the SSH keys of CloudSync's safe can be used
+  bool shared_servers = 9; // hosts are Shard's shared server list
+  bool safe_keys = 10;     // the SSH keys of Shard's safe can be used
 }
 
 message Event {
@@ -108,7 +108,7 @@ message Host {
     PASSWORD = 1;
     KEY = 2;
     AGENT = 3;          // ssh-agent ($SSH_AUTH_SOCK), desktops only
-    SAFE_KEY = 4;       // a key of CloudSync's password safe (key_id)
+    SAFE_KEY = 4;       // a key of Shard's password safe (key_id)
   }
   Auth auth = 7;
   string password = 8;

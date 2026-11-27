@@ -24,7 +24,7 @@ extension on Section {
     Section.hosts => tr('Hosts', 'Хосты'),
     Section.terminal => tr('Terminal', 'Терминал'),
     Section.files => tr('Files', 'Файлы'),
-    Section.sync => 'CloudSync',
+    Section.sync => 'Shard',
   };
 
   IconData get icon => switch (this) {
@@ -195,7 +195,7 @@ class _Header extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text('SSH Manager', style: HmText.logo),
+          Text('Postern', style: HmText.logo),
           const Spacer(),
           for (final s in Section.values) ...[
             ListenableBuilder(
@@ -361,7 +361,7 @@ class _MobileHeader extends StatelessWidget {
         children: [
           // Takes the free space and gives way first in a narrow window.
           Expanded(
-            child: Text('SSH Manager', style: HmText.logo.copyWith(fontSize: 18), maxLines: 1, overflow: TextOverflow.ellipsis),
+            child: Text('Postern', style: HmText.logo.copyWith(fontSize: 18), maxLines: 1, overflow: TextOverflow.ellipsis),
           ),
           HmDot(ok: core.conn == Conn.ready, label: core.conn == Conn.ready ? tr('Online', 'В сети') : tr('Offline', 'Не в сети')),
           const SizedBox(width: 8),
@@ -393,7 +393,7 @@ class _Footer extends StatelessWidget {
         style: HmText.footer,
         child: Row(
           children: [
-            Text('SSH MANAGER V${AppConfig.version}'),
+            Text('POSTERN V${AppConfig.version}'),
             dot,
             Text('BUILD ${AppConfig.shortSha}'.toUpperCase()),
             if (st != null) ...[

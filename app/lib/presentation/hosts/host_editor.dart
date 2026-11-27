@@ -8,7 +8,7 @@ import '../../core/theme/colors.dart';
 import '../../core/theme/layout.dart';
 import '../../core/theme/typography.dart';
 import '../../data/core.dart';
-import '../../data/rpc/gen/sshm.pb.dart' as pb;
+import '../../data/rpc/gen/postern.pb.dart' as pb;
 import '../common/hm.dart';
 
 /// Add or edit a host. Returns the saved host.
@@ -116,7 +116,7 @@ class _HostFormState extends State<_HostForm> {
           );
     final methods = <Host_Auth, String>{
       Host_Auth.PASSWORD: tr('Password', 'Пароль'),
-      Host_Auth.SAFE_KEY: 'CloudSync',
+      Host_Auth.SAFE_KEY: 'Shard',
       Host_Auth.KEY: tr('Own key', 'Свой ключ'),
       if (!Platform.isAndroid) Host_Auth.AGENT: tr('Agent', 'Агент'),
     };
@@ -155,8 +155,8 @@ class _HostFormState extends State<_HostForm> {
               identifier: true,
               placeholder: '-----BEGIN OPENSSH PRIVATE KEY-----',
               hint: shared
-                  ? tr('Kept on this device only. Put the key into the CloudSync safe to use it everywhere.',
-                      'Хранится только на этом устройстве. Положите ключ в сейф CloudSync, чтобы он был везде.')
+                  ? tr('Kept on this device only. Put the key into the Shard safe to use it everywhere.',
+                      'Хранится только на этом устройстве. Положите ключ в сейф Shard, чтобы он был везде.')
                   : null,
             ),
             SizedBox(height: hm.gapSm),
@@ -191,13 +191,13 @@ class _HostFormState extends State<_HostForm> {
     if (_safeKeysWhy != null || keys!.isEmpty) {
       return HmBanner(
         _safeKeysWhy ??
-            tr('The CloudSync safe has no SSH keys yet. Add one there (kind "SSH key").', 'В сейфе CloudSync пока нет SSH-ключей. Добавьте ключ там (тип «SSH-ключ»).'),
+            tr('The Shard safe has no SSH keys yet. Add one there (kind "SSH key").', 'В сейфе Shard пока нет SSH-ключей. Добавьте ключ там (тип «SSH-ключ»).'),
         tone: HmTone.warning,
       );
     }
     final known = keys.any((k) => k.id == _keyId);
     return HmSelect<String>(
-      label: tr('Key from the CloudSync safe', 'Ключ из сейфа CloudSync'),
+      label: tr('Key from the Shard safe', 'Ключ из сейфа Shard'),
       required: true,
       options: {for (final k in keys) k.id: k.title.isEmpty ? k.fingerprint : k.title},
       value: known ? _keyId : null,
@@ -206,8 +206,8 @@ class _HostFormState extends State<_HostForm> {
         final k = keys.firstWhere((k) => k.id == id);
         return '${k.keyType}  ${k.fingerprint}';
       },
-      hint: tr('The private key is fetched from CloudSync for each connection and never stored here.',
-          'Приватный ключ берётся из CloudSync при каждом подключении и здесь не хранится.'),
+      hint: tr('The private key is fetched from Shard for each connection and never stored here.',
+          'Приватный ключ берётся из Shard при каждом подключении и здесь не хранится.'),
       onChanged: (v) => setState(() => _keyId = v),
     );
   }
@@ -219,7 +219,7 @@ String hostLine(Host h) => '${h.user}@${h.address}${h.port == 0 || h.port == 22 
 String authLabel(Host h) => switch (h.auth) {
   Host_Auth.KEY => tr('pasted key', 'свой ключ'),
   Host_Auth.AGENT => 'ssh-agent',
-  Host_Auth.SAFE_KEY => tr('CloudSync key', 'ключ CloudSync'),
+  Host_Auth.SAFE_KEY => tr('Shard key', 'ключ Shard'),
   _ => tr('password', 'пароль'),
 };
 

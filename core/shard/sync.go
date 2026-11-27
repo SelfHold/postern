@@ -1,4 +1,4 @@
-package cloudsync
+package shard
 
 import (
 	"bytes"
@@ -17,17 +17,17 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"sshmanager/core/cloudsync/pb"
-	"sshmanager/core/hosts"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
-// The app's identity in CloudSync. Never change them: another id sees
+// The app's identity in Shard. Never change them: another id sees
 // other data.
 const (
-	AppID     = "sshmanager"
-	AppName   = "SSH Manager"
+	AppID     = "postern"
+	AppName   = "Postern"
 	RecordKey = "hosts.json"
-	// MaxRecord is CloudSync's limit for one value.
+	// MaxRecord is Shard's limit for one value.
 	MaxRecord = 256 << 10
 )
 
@@ -55,10 +55,10 @@ type Status struct {
 	Pending     bool
 	LastSyncMs  int64
 	DeviceName  string
-	// SharedServers: hosts live in CloudSync's shared server list (scope
+	// SharedServers: hosts live in Shard's shared server list (scope
 	// "servers"); otherwise in this app's own record.
 	SharedServers bool
-	// SafeKeys: the SSH keys of CloudSync's safe can be used (scope
+	// SafeKeys: the SSH keys of Shard's safe can be used (scope
 	// "ssh_keys").
 	SafeKeys bool
 }
@@ -78,7 +78,7 @@ type localState struct {
 	Servers map[string]serverSync `json:"servers,omitempty"`
 }
 
-// Syncer keeps the hosts store and the CloudSync record in step.
+// Syncer keeps the hosts store and the Shard record in step.
 type Syncer struct {
 	dialer      Dialer
 	store       *hosts.Store
@@ -98,7 +98,7 @@ type Syncer struct {
 }
 
 // New loads the device state from statePath. description is shown to the
-// user in the pairing dialog ("SSH Manager 0.1 on linux").
+// user in the pairing dialog ("Postern 0.1 on linux").
 func New(d Dialer, store *hosts.Store, statePath, description string) (*Syncer, error) {
 	s := &Syncer{
 		dialer:      d,
@@ -112,7 +112,7 @@ func New(d Dialer, store *hosts.Store, statePath, description string) (*Syncer, 
 	switch {
 	case err == nil:
 		if err := json.Unmarshal(data, &s.st); err != nil {
-			return nil, fmt.Errorf("cloudsync state: %w", err)
+			return nil, fmt.Errorf("shard state: %w", err)
 		}
 	case !errors.Is(err, os.ErrNotExist):
 		return nil, err
@@ -132,7 +132,7 @@ func (s *Syncer) OnStatus(fn func(Status)) {
 	s.mu.Unlock()
 }
 
-// OnRekey sets the function called when a host gets the id CloudSync
+// OnRekey sets the function called when a host gets the id Shard
 // chose for it (open terminals and panels follow it).
 func (s *Syncer) OnRekey(fn func(from, to string)) {
 	s.mu.Lock()
@@ -158,7 +158,7 @@ func (s *Syncer) Kick() {
 }
 
 // Run syncs until ctx ends: at start, on every local change, on every
-// change CloudSync reports, and every 30 s.
+// change Shard reports, and every 30 s.
 func (s *Syncer) Run(ctx context.Context) {
 	for {
 		s.Round(ctx)
@@ -222,8 +222,8 @@ func (s *Syncer) Round(ctx context.Context) {
 	s.mu.Unlock()
 
 	if !st.Enabled && !pairing {
-		// Off: look now and then whether CloudSync is there, so the app
-		// can offer "Sync via CloudSync".
+		// Off: look now and then whether Shard is there, so the app
+		// can offer "Sync via Shard".
 		s.mu.Lock()
 		probe := time.Since(s.lastProbed) > time.Minute || s.status.Phase != PhaseOff
 		if probe {
@@ -252,7 +252,7 @@ func (s *Syncer) Round(ctx context.Context) {
 	s.setStatus(func(x *Status) { x.Available, x.DeviceName = true, hello.DeviceName })
 	if hello.ApiVersion > APIVersion {
 		s.setStatus(func(x *Status) {
-			x.Phase, x.Error = PhaseError, fmt.Sprintf("CloudSync speaks API v%d: update this app", hello.ApiVersion)
+			x.Phase, x.Error = PhaseError, fmt.Sprintf("Shard speaks API v%d: update this app", hello.ApiVersion)
 		})
 		return
 	}
@@ -269,7 +269,7 @@ func (s *Syncer) Round(ctx context.Context) {
 		return
 	}
 	if !hello.Paired {
-		s.turnOff("CloudSync no longer knows this app (pairing revoked): switch sync on again")
+		s.turnOff("Shard no longer knows this app (pairing revoked): switch sync on again")
 		return
 	}
 	s.mu.Lock()
@@ -279,7 +279,7 @@ func (s *Syncer) Round(ctx context.Context) {
 		_ = s.saveLocked()
 	case s.st.VaultID != hello.VaultId:
 		s.mu.Unlock()
-		s.turnOff("another CloudSync vault is open: switch sync on again to use it")
+		s.turnOff("another Shard vault is open: switch sync on again to use it")
 		return
 	}
 	s.mu.Unlock()
@@ -322,7 +322,7 @@ func (s *Syncer) Round(ctx context.Context) {
 	case codes.FailedPrecondition:
 		s.setStatus(func(x *Status) { x.Phase, x.Error = PhaseLocked, "" })
 	case codes.Unauthenticated:
-		s.turnOff("CloudSync no longer knows this app (pairing revoked): switch sync on again")
+		s.turnOff("Shard no longer knows this app (pairing revoked): switch sync on again")
 	default:
 		s.setStatus(func(x *Status) { x.Phase, x.Error = PhaseError, errText(err) })
 	}
@@ -432,12 +432,12 @@ func (s *Syncer) reconcile(ctx context.Context, cli pb.ConnectorClient) error {
 		s.saveSynced(rev, out)
 		return nil
 	}
-	return errors.New("the host list keeps changing in CloudSync: will retry")
+	return errors.New("the host list keeps changing in Shard: will retry")
 }
 
 func (s *Syncer) put(ctx context.Context, cli pb.ConnectorClient, data []byte, base string) (string, error) {
 	if len(data) > MaxRecord {
-		return "", fmt.Errorf("the host list is %d KiB, CloudSync takes at most %d KiB", len(data)>>10, MaxRecord>>10)
+		return "", fmt.Errorf("the host list is %d KiB, Shard takes at most %d KiB", len(data)>>10, MaxRecord>>10)
 	}
 	item, err := cli.Put(ctx, &pb.PutRequest{Key: RecordKey, Data: data, Base: base})
 	if err != nil {
@@ -453,7 +453,7 @@ func (s *Syncer) saveSynced(rev string, data []byte) {
 	s.mu.Unlock()
 }
 
-// Enable switches sync on: it asks CloudSync for pairing when this app is
+// Enable switches sync on: it asks Shard for pairing when this app is
 // not paired yet and returns the code to show (Status.PairingCode); the
 // answer arrives through OnStatus.
 func (s *Syncer) Enable(ctx context.Context) (Status, error) {
@@ -469,7 +469,7 @@ func (s *Syncer) Enable(ctx context.Context) (Status, error) {
 		return s.Status(), ErrNotRunning
 	}
 	if hello.State == pb.VaultState_NO_VAULT {
-		return s.Status(), errors.New("CloudSync is not set up on this device yet")
+		return s.Status(), errors.New("Shard is not set up on this device yet")
 	}
 	if hello.Paired {
 		s.mu.Lock()
@@ -485,7 +485,7 @@ func (s *Syncer) Enable(ctx context.Context) (Status, error) {
 	return s.requestPairing(ctx, cli)
 }
 
-// RequestAccess asks CloudSync again, while paired, for the scopes this
+// RequestAccess asks Shard again, while paired, for the scopes this
 // app wants (shared servers, SSH keys): the pairing stays valid while the
 // request waits.
 func (s *Syncer) RequestAccess(ctx context.Context) (Status, error) {
@@ -503,7 +503,7 @@ func (s *Syncer) requestPairing(ctx context.Context, cli pb.ConnectorClient) (St
 		Scopes: []string{ScopeServers, ScopeSSHKeys}}
 	t, err := cli.RequestPairing(ctx, req)
 	if status.Code(err) == codes.InvalidArgument {
-		// A CloudSync that does not know these scopes yet: pair for the
+		// A Shard that does not know these scopes yet: pair for the
 		// app's own record only.
 		req.Scopes = nil
 		t, err = cli.RequestPairing(ctx, req)
@@ -523,7 +523,7 @@ func (s *Syncer) requestPairing(ctx context.Context, cli pb.ConnectorClient) (St
 	return s.Status(), nil
 }
 
-// await waits for the user's answer in CloudSync.
+// await waits for the user's answer in Shard.
 func (s *Syncer) await(ctx context.Context, cancel context.CancelFunc, ticket string) {
 	defer cancel()
 	finish := func(fn func()) {
@@ -571,7 +571,7 @@ func (s *Syncer) await(ctx context.Context, cancel context.CancelFunc, ticket st
 			return
 		case pb.PairingStatus_DENIED:
 			finish(func() {})
-			s.pairingEnded("CloudSync denied the request")
+			s.pairingEnded("Shard denied the request")
 			return
 		default:
 			finish(func() {})
@@ -598,7 +598,7 @@ func (s *Syncer) pairingEnded(why string) {
 }
 
 // Disable switches sync off, keeps the local file and forgets the pairing.
-// The record stays in CloudSync for the other devices.
+// The record stays in Shard for the other devices.
 func (s *Syncer) Disable(ctx context.Context) Status {
 	s.stopWatch()
 	s.mu.Lock()
@@ -623,7 +623,7 @@ func (s *Syncer) Disable(ctx context.Context) Status {
 }
 
 // startWatch keeps one Watch stream open; every change kicks a round.
-// Without Watch (Android adapter, old CloudSync) the 30 s rounds remain.
+// Without Watch (Android adapter, old Shard) the 30 s rounds remain.
 func (s *Syncer) startWatch(ctx context.Context) {
 	s.mu.Lock()
 	if s.watchStop != nil {

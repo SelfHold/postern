@@ -17,10 +17,10 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
 
-	"sshmanager/core/hosts"
+	"github.com/SelfHold/postern/core/hosts"
 )
 
-// KeyFetcher returns the private key (and its passphrase) of a CloudSync
+// KeyFetcher returns the private key (and its passphrase) of a Shard
 // safe entry, for hosts with hosts.AuthSafeKey.
 type KeyFetcher func(ctx context.Context, keyID string) (private, passphrase string, err error)
 
@@ -253,11 +253,11 @@ func authMethods(ctx context.Context, h hosts.Host, fetch KeyFetcher) ([]ssh.Aut
 		return []ssh.AuthMethod{ssh.PublicKeys(s)}, none, nil
 	case hosts.AuthSafeKey:
 		if fetch == nil {
-			return nil, none, errors.New("keys from CloudSync are not available on this device")
+			return nil, none, errors.New("keys from Shard are not available on this device")
 		}
 		priv, pass, err := fetch(ctx, h.KeyID)
 		if err != nil {
-			return nil, none, fmt.Errorf("key from CloudSync: %w", err)
+			return nil, none, fmt.Errorf("key from Shard: %w", err)
 		}
 		s, err := signer(priv, pass)
 		if err != nil {

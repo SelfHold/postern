@@ -1,6 +1,6 @@
 // This is a generated file - do not edit.
 //
-// Generated from sshm.proto.
+// Generated from postern.proto.
 
 // @dart = 3.3
 
@@ -15,11 +15,11 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'sshm.pbenum.dart';
+import 'postern.pbenum.dart';
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
-export 'sshm.pbenum.dart';
+export 'postern.pbenum.dart';
 
 class Empty extends $pb.GeneratedMessage {
   factory Empty() => Empty._();
@@ -35,7 +35,8 @@ class Empty extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Empty',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: Empty.$_createMessage)
     ..hasRequiredFields = false;
 
@@ -86,7 +87,8 @@ class State extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'State',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: State.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'coreVersion')
     ..aOS(2, _omitFieldNames ? '' : 'coreBuild')
@@ -192,7 +194,8 @@ class SyncState extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'SyncState',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: SyncState.$_createMessage)
     ..aE<SyncState_Phase>(1, _omitFieldNames ? '' : 'phase',
         enumValues: SyncState_Phase.values)
@@ -340,7 +343,8 @@ class Event extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Event',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: Event.$_createMessage)
     ..aE<Event_Kind>(1, _omitFieldNames ? '' : 'kind',
         enumValues: Event_Kind.values)
@@ -438,7 +442,8 @@ class Host extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Host',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: Host.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'name')
@@ -642,7 +647,8 @@ class HostList extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'HostList',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: HostList.$_createMessage)
     ..pPM<Host>(1, _omitFieldNames ? '' : 'hosts',
         subBuilder: Host.$_createMessage)
@@ -692,7 +698,8 @@ class HostRef extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'HostRef',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: HostRef.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..hasRequiredFields = false;
@@ -754,7 +761,8 @@ class HostKey extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'HostKey',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: HostKey.$_createMessage)
     ..aE<HostKey_Status>(1, _omitFieldNames ? '' : 'status',
         enumValues: HostKey_Status.values)
@@ -844,7 +852,8 @@ class TrustRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'TrustRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: TrustRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'key')
@@ -927,7 +936,8 @@ class ShellIn_Open extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ShellIn.Open',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: ShellIn_Open.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'hostId')
     ..aI(2, _omitFieldNames ? '' : 'cols', fieldType: $pb.PbFieldType.OU3)
@@ -1006,7 +1016,8 @@ class ShellIn_Resize extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ShellIn.Resize',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: ShellIn_Resize.$_createMessage)
     ..aI(1, _omitFieldNames ? '' : 'cols', fieldType: $pb.PbFieldType.OU3)
     ..aI(2, _omitFieldNames ? '' : 'rows', fieldType: $pb.PbFieldType.OU3)
@@ -1085,7 +1096,8 @@ class ShellIn extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ShellIn',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: ShellIn.$_createMessage)
     ..oo(0, [1, 2, 3])
     ..aOM<ShellIn_Open>(1, _omitFieldNames ? '' : 'open',
@@ -1189,7 +1201,8 @@ class ShellOut extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'ShellOut',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: ShellOut.$_createMessage)
     ..oo(0, [1, 2, 3])
     ..aOB(1, _omitFieldNames ? '' : 'opened')
@@ -1285,7 +1298,8 @@ class Entry extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'Entry',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: Entry.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'name')
     ..aOB(2, _omitFieldNames ? '' : 'dir')
@@ -1392,7 +1406,8 @@ class DirRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'DirRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: DirRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'side')
     ..aOS(2, _omitFieldNames ? '' : 'path')
@@ -1459,7 +1474,8 @@ class DirListing extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'DirListing',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: DirListing.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'path')
     ..pPM<Entry>(2, _omitFieldNames ? '' : 'entries',
@@ -1521,7 +1537,8 @@ class PathRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'PathRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: PathRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'side')
     ..aOS(2, _omitFieldNames ? '' : 'path')
@@ -1590,7 +1607,8 @@ class PathsRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'PathsRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: PathsRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'side')
     ..pPS(2, _omitFieldNames ? '' : 'paths')
@@ -1655,7 +1673,8 @@ class RenameRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'RenameRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: RenameRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'side')
     ..aOS(2, _omitFieldNames ? '' : 'from')
@@ -1742,7 +1761,8 @@ class TransferRequest extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'TransferRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: TransferRequest.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'srcSide')
     ..pPS(2, _omitFieldNames ? '' : 'srcPaths')
@@ -1853,7 +1873,8 @@ class TransferProgress extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'TransferProgress',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: TransferProgress.$_createMessage)
     ..aInt64(1, _omitFieldNames ? '' : 'doneBytes')
     ..aInt64(2, _omitFieldNames ? '' : 'totalBytes')
@@ -1970,7 +1991,8 @@ class SafeKey extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'SafeKey',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: SafeKey.$_createMessage)
     ..aOS(1, _omitFieldNames ? '' : 'id')
     ..aOS(2, _omitFieldNames ? '' : 'title')
@@ -2077,7 +2099,8 @@ class SafeKeyList extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       _omitMessageNames ? '' : 'SafeKeyList',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'sshm.v1'),
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'selfhold.postern.v1'),
       createEmptyInstance: SafeKeyList.$_createMessage)
     ..pPM<SafeKey>(1, _omitFieldNames ? '' : 'keys',
         subBuilder: SafeKey.$_createMessage)

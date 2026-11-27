@@ -1,4 +1,4 @@
-module sshmanager
+module github.com/SelfHold/postern
 
 go 1.27.1
 

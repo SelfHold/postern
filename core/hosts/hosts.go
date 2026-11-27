@@ -1,5 +1,5 @@
 // Package hosts keeps the list of SSH hosts in one JSON file. The same
-// bytes are the CloudSync record (see core/cloudsync), so the format is
+// bytes are the Shard record (see core/shard), so the format is
 // canonical: hosts and tombstones sorted by id, no volatile fields.
 package hosts
 
@@ -24,13 +24,13 @@ const (
 	AuthPassword = "password"
 	AuthKey      = "key"
 	AuthAgent    = "agent"
-	// AuthSafeKey: an SSH key of CloudSync's password safe, by entry id
+	// AuthSafeKey: an SSH key of Shard's password safe, by entry id
 	// (KeyID). The private key is fetched at connect time, never stored.
-	AuthSafeKey = "cloudsync_key"
+	AuthSafeKey = "shard_key"
 )
 
 // Host is one server. Secrets (password, key) are part of it: the file is
-// private to the user locally and sealed by CloudSync when synced.
+// private to the user locally and sealed by Shard when synced.
 type Host struct {
 	ID         string `json:"id"`
 	Name       string `json:"name"`
@@ -67,7 +67,7 @@ type File struct {
 	Version int       `json:"version"`
 	Hosts   []Host    `json:"hosts"`
 	Removed []Removed `json:"removed,omitempty"`
-	// Migrated maps host ids of this file to server ids of CloudSync's
+	// Migrated maps host ids of this file to server ids of Shard's
 	// shared server list, once a device moved the hosts there. Other
 	// devices re-key their copies with it instead of uploading them again.
 	Migrated map[string]string `json:"migrated,omitempty"`
@@ -205,7 +205,7 @@ func NewID() string {
 }
 
 // Store is the local file, the working copy: the app reads and writes it
-// whether or not CloudSync is there.
+// whether or not Shard is there.
 type Store struct {
 	path string
 	now  func() time.Time
@@ -479,7 +479,7 @@ func Validate(h Host) error {
 		}
 	case AuthSafeKey:
 		if strings.TrimSpace(h.KeyID) == "" {
-			return errors.New("pick a key from CloudSync")
+			return errors.New("pick a key from Shard")
 		}
 	default:
 		return fmt.Errorf("unknown auth %q", h.Auth)

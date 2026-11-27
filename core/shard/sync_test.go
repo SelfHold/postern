@@ -1,4 +1,4 @@
-package cloudsync
+package shard
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"sshmanager/core/cloudsync/pb"
-	"sshmanager/core/hosts"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/shard/pb"
 )
 
 type dev struct {
@@ -24,7 +24,7 @@ func newDev(t *testing.T, v *fakeVault, name string) *dev {
 		t.Fatal(err)
 	}
 	fd := &fakeDevice{v: v, name: name}
-	s, err := New(fd, store, filepath.Join(dir, "cloudsync.json"), "test")
+	s, err := New(fd, store, filepath.Join(dir, "shard.json"), "test")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -69,7 +69,7 @@ func names(s *hosts.Store) map[string]hosts.Host {
 }
 
 func TestRecordSyncBetweenDevices(t *testing.T) {
-	v := newVault() // CloudSync without the new scopes
+	v := newVault() // Shard without the new scopes
 	a, b := newDev(t, v, "a"), newDev(t, v, "b")
 	a.add(t, "web")
 	db := a.add(t, "db")
@@ -149,7 +149,7 @@ func TestMigrationToSharedServers(t *testing.T) {
 	b.enable(t)
 	b.round(t)
 
-	// CloudSync learns the scopes; both devices move to the shared list.
+	// Shard learns the scopes; both devices move to the shared list.
 	v.scopes = []string{ScopeServers, ScopeSSHKeys}
 	if st := a.round(t); !st.SharedServers || st.Phase != PhaseSynced {
 		t.Fatalf("a: %+v", st)
@@ -193,7 +193,7 @@ func TestMigrationToSharedServers(t *testing.T) {
 
 	// Another app's extra fields survive our writes.
 	for _, sv := range v.servers {
-		sv.Extra = map[string][]byte{"dbmanager.dbs": []byte("x")}
+		sv.Extra = map[string][]byte{"cellar.dbs": []byte("x")}
 		sv.Revision = v.rev()
 		v.logChange(sv.Id, sv.Revision, false)
 	}
@@ -203,11 +203,11 @@ func TestMigrationToSharedServers(t *testing.T) {
 	a.store.Save(w)
 	a.round(t)
 	for _, sv := range v.servers {
-		if string(sv.Extra["dbmanager.dbs"]) != "x" || sv.Notes != "edited" {
+		if string(sv.Extra["cellar.dbs"]) != "x" || sv.Notes != "edited" {
 			t.Fatalf("server after edit: %+v", sv)
 		}
 	}
-	// New hosts get CloudSync's id.
+	// New hosts get Shard's id.
 	n := a.add(t, "new")
 	a.round(t)
 	if got := names(a.store)["new"]; got.ID == n.ID || v.servers[got.ID] == nil {

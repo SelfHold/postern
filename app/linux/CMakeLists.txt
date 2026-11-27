@@ -4,10 +4,10 @@ project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "sshmanager")
+set(BINARY_NAME "postern")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
-set(APPLICATION_ID "dev.sshmanager.sshmanager")
+set(APPLICATION_ID "dev.selfhold.postern")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
@@ -62,21 +62,21 @@ add_dependencies(${BINARY_NAME} flutter_assemble)
 
 # The core (Go, desktopbind) is linked into the executable: one process, no
 # daemon. `make core-lib` builds it (go keeps it up to date); Dart calls
-# SshmStart/Stop/Free through FFI (DynamicLibrary.process()), so they are
+# PosternStart/Stop/Free through FFI (DynamicLibrary.process()), so they are
 # pulled from the archive and exported although nothing in C++ calls them.
 find_package(Threads REQUIRED)
-set(SSHM_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../..")
-set(SSHM_CORE "${CMAKE_BINARY_DIR}/core/libsshmanager.a")
-add_custom_target(sshm_core
-  COMMAND make -C "${SSHM_ROOT}" --no-print-directory core-lib "CORE_LIB=${SSHM_CORE}"
-  BYPRODUCTS "${SSHM_CORE}"
+set(POSTERN_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../..")
+set(POSTERN_CORE "${CMAKE_BINARY_DIR}/core/libpostern.a")
+add_custom_target(postern_core
+  COMMAND make -C "${POSTERN_ROOT}" --no-print-directory core-lib "CORE_LIB=${POSTERN_CORE}"
+  BYPRODUCTS "${POSTERN_CORE}"
   USES_TERMINAL
 )
-add_dependencies(${BINARY_NAME} sshm_core)
-foreach(sym SshmStart SshmStop SshmFree)
+add_dependencies(${BINARY_NAME} postern_core)
+foreach(sym PosternStart PosternStop PosternFree)
   target_link_options(${BINARY_NAME} PRIVATE "LINKER:-u,${sym}" "LINKER:--export-dynamic-symbol=${sym}")
 endforeach()
-target_link_libraries(${BINARY_NAME} PRIVATE "${SSHM_CORE}" Threads::Threads)
+target_link_libraries(${BINARY_NAME} PRIVATE "${POSTERN_CORE}" Threads::Threads)
 
 # Only the install-generated bundle's copy of the executable will launch
 # correctly, since the resources must in the right relative locations. To avoid

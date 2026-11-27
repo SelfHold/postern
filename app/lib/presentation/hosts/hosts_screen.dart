@@ -4,7 +4,7 @@ import '../../core/i18n.dart';
 import '../../core/theme/layout.dart';
 import '../../core/theme/typography.dart';
 import '../../data/core.dart';
-import '../../data/rpc/gen/sshm.pb.dart' as pb;
+import '../../data/rpc/gen/postern.pb.dart' as pb;
 import '../../data/sessions.dart';
 import '../common/hm.dart';
 import '../files/files_screen.dart';
@@ -42,8 +42,8 @@ class _HostsScreenState extends State<HostsScreen> {
       context,
       title: tr('Delete ${h.name}?', 'Удалить ${h.name}?'),
       message: shared
-          ? tr('The server is removed from CloudSync\'s shared list: your other devices and DB Manager lose it too.',
-              'Сервер удалится из общего списка CloudSync: он пропадёт и на других устройствах, и в DB Manager.')
+          ? tr('The server is removed from Shard\'s shared list: your other devices and Cellar lose it too.',
+              'Сервер удалится из общего списка Shard: он пропадёт и на других устройствах, и в Cellar.')
           : tr('The host is removed on every synced device.', 'Хост удалится на всех синхронизированных устройствах.'),
       action: tr('Delete', 'Удалить'),
       destructive: true,
@@ -73,8 +73,8 @@ class _HostsScreenState extends State<HostsScreen> {
             if (!hm.mobile) HmPageTitle(tr('Hosts', 'Хосты')),
             if (core.sync.phase == SyncState_Phase.OFF && core.sync.available)
               HmBanner(
-                tr('CloudSync is on this device: switch sync on to have these hosts on every device.',
-                    'На устройстве есть CloudSync: включите синхронизацию, чтобы хосты были на всех устройствах.'),
+                tr('Shard is on this device: switch sync on to have these hosts on every device.',
+                    'На устройстве есть Shard: включите синхронизацию, чтобы хосты были на всех устройствах.'),
                 action: HmButton(tr('Set up', 'Настроить'), small: true, onPressed: () => AppShell.go(context, Section.sync)),
               ),
             HmTable<Host>(

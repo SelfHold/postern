@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sshmanager/presentation/files/files_model.dart';
+import 'package:postern/presentation/files/files_model.dart';
 
 void main() {
   test('fmtSize', () {

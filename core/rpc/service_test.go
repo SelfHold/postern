@@ -23,11 +23,11 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"sshmanager/core/cloudsync"
-	cpb "sshmanager/core/cloudsync/pb"
-	"sshmanager/core/fsys"
-	"sshmanager/core/hosts"
-	"sshmanager/core/rpc/pb"
+	"github.com/SelfHold/postern/core/fsys"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/rpc/pb"
+	"github.com/SelfHold/postern/core/shard"
+	cpb "github.com/SelfHold/postern/core/shard/pb"
 )
 
 // testSSHD is a tiny SSH server: password "secret", an echo shell and the
@@ -114,10 +114,10 @@ func serveConn(c net.Conn, cfg *ssh.ServerConfig) {
 	}
 }
 
-type noCloudSync struct{}
+type noShard struct{}
 
-func (noCloudSync) Dial(context.Context) (cpb.ConnectorClient, io.Closer, error) {
-	return nil, nil, cloudsync.ErrNotRunning
+func (noShard) Dial(context.Context) (cpb.ConnectorClient, io.Closer, error) {
+	return nil, nil, shard.ErrNotRunning
 }
 
 func client(t *testing.T) (pb.CoreClient, context.Context) {
@@ -127,7 +127,7 @@ func client(t *testing.T) (pb.CoreClient, context.Context) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	syncer, err := cloudsync.New(noCloudSync{}, store, filepath.Join(dir, "cs.json"), "test")
+	syncer, err := shard.New(noShard{}, store, filepath.Join(dir, "shard.json"), "test")
 	if err != nil {
 		t.Fatal(err)
 	}

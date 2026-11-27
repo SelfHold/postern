@@ -20,7 +20,7 @@ go run ./tools/devsshd   # throwaway SSH server on 127.0.0.1:2222 (tester / secr
 ```
 
 Use the `make` targets rather than calling `go`, `flutter` or `protoc` by hand. Build
-outputs go to `builds/`. Generated code (`core/rpc/pb`, `core/cloudsync/pb`,
+outputs go to `builds/`. Generated code (`core/rpc/pb`, `core/shard/pb`,
 `app/lib/data/rpc/gen`) is only changed by `make proto`, never by hand.
 
 Pull requests go to `main`. Keep one topic per PR, and make sure `make vet test app-test`
@@ -38,17 +38,18 @@ passes.
 
 ## Naming
 
-The product is Postern (formerly SSH Manager). Many identifiers still use the old name:
-the Go module `sshmanager`, the proto package `sshm.v1`, `SshmStart/Stop/Free`, the app
-and Android ids, the data directory `~/.config/sshmanager`, the record `hosts.json`, the
-`Server.extra` prefix `sshmanager.*`. These are persisted on users' devices or shared with
-other apps: **do not rename them** without a migration plan agreed in an issue first.
+The persisted and published identifiers are the Go module `github.com/SelfHold/postern`,
+the proto package `selfhold.postern.v1`, `PosternStart/Stop/Free`, the app and Android id
+`dev.selfhold.postern`, the data directory `~/.config/selfhold/postern`, the Connector app
+id `postern` with its record `hosts.json`, and the `Server.extra` prefix `postern.*`. They
+live on users' devices or in other apps' data: **do not rename them** without a migration
+plan agreed in an issue first.
 
 ## Architecture rules
 
 - **The core owns everything.** SSH, SFTP, host keys, transfers and sync live in the Go
   core (`core/`). The Flutter app (`app/`) only renders and calls the gRPC API
-  (`proto/sshm.proto`).
+  (`proto/postern.proto`).
 - **No daemon.** `core/embed` runs the core inside the app's process (`desktopbind` on
   Linux, `mobilebind` on Android). Keep platform specifics behind these seams and in the
   data-dir lookup: no Linux-only assumptions in shared core code, so macOS and iOS stay
@@ -61,7 +62,7 @@ other apps: **do not rename them** without a migration plan agreed in an issue f
   wins). Never merge across vault ids. Moving to the shared list writes `migrated` (old
   id → server id) into the record, so other devices re-key instead of uploading
   duplicates.
-- **Other apps' data.** In `Server.extra` only `sshmanager.*` keys are ours; keep
+- **Other apps' data.** In `Server.extra` only `postern.*` keys are ours; keep
   everyone else's keys exactly as they are.
 - **Private keys.** A key from the Shard safe (`SAFE_KEY`, scope `ssh_keys`) is fetched
   per connection and never stored. A pasted key is never put into the shared server

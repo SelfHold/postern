@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v7.36.1
-// source: sshm.proto
+// source: postern.proto
 
-// The API between the SSH Manager core (inside the app's process:
+// The API between the Postern core (inside the app's process:
 // desktopbind on desktops, mobilebind on Android) and its Flutter UI. The core owns SSH connections,
 // file transfers and the host list; the app only draws.
 
@@ -30,10 +30,10 @@ type SyncState_Phase int32
 const (
 	SyncState_PHASE_UNSPECIFIED SyncState_Phase = 0
 	SyncState_OFF               SyncState_Phase = 1 // sync switched off
-	SyncState_NOT_RUNNING       SyncState_Phase = 2 // switched on, CloudSync not found
+	SyncState_NOT_RUNNING       SyncState_Phase = 2 // switched on, Shard not found
 	SyncState_NO_VAULT          SyncState_Phase = 3
 	SyncState_LOCKED            SyncState_Phase = 4
-	SyncState_PAIRING           SyncState_Phase = 5 // waiting for the user in CloudSync (code)
+	SyncState_PAIRING           SyncState_Phase = 5 // waiting for the user in Shard (code)
 	SyncState_OFFLINE           SyncState_Phase = 6 // reads work, writes wait
 	SyncState_SYNCED            SyncState_Phase = 7
 	SyncState_ERROR             SyncState_Phase = 8
@@ -76,11 +76,11 @@ func (x SyncState_Phase) String() string {
 }
 
 func (SyncState_Phase) Descriptor() protoreflect.EnumDescriptor {
-	return file_sshm_proto_enumTypes[0].Descriptor()
+	return file_postern_proto_enumTypes[0].Descriptor()
 }
 
 func (SyncState_Phase) Type() protoreflect.EnumType {
-	return &file_sshm_proto_enumTypes[0]
+	return &file_postern_proto_enumTypes[0]
 }
 
 func (x SyncState_Phase) Number() protoreflect.EnumNumber {
@@ -89,7 +89,7 @@ func (x SyncState_Phase) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use SyncState_Phase.Descriptor instead.
 func (SyncState_Phase) EnumDescriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{2, 0}
+	return file_postern_proto_rawDescGZIP(), []int{2, 0}
 }
 
 type Event_Kind int32
@@ -125,11 +125,11 @@ func (x Event_Kind) String() string {
 }
 
 func (Event_Kind) Descriptor() protoreflect.EnumDescriptor {
-	return file_sshm_proto_enumTypes[1].Descriptor()
+	return file_postern_proto_enumTypes[1].Descriptor()
 }
 
 func (Event_Kind) Type() protoreflect.EnumType {
-	return &file_sshm_proto_enumTypes[1]
+	return &file_postern_proto_enumTypes[1]
 }
 
 func (x Event_Kind) Number() protoreflect.EnumNumber {
@@ -138,7 +138,7 @@ func (x Event_Kind) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Event_Kind.Descriptor instead.
 func (Event_Kind) EnumDescriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{3, 0}
+	return file_postern_proto_rawDescGZIP(), []int{3, 0}
 }
 
 type Host_Auth int32
@@ -148,7 +148,7 @@ const (
 	Host_PASSWORD         Host_Auth = 1
 	Host_KEY              Host_Auth = 2
 	Host_AGENT            Host_Auth = 3 // ssh-agent ($SSH_AUTH_SOCK), desktops only
-	Host_SAFE_KEY         Host_Auth = 4 // a key of CloudSync's password safe (key_id)
+	Host_SAFE_KEY         Host_Auth = 4 // a key of Shard's password safe (key_id)
 )
 
 // Enum value maps for Host_Auth.
@@ -180,11 +180,11 @@ func (x Host_Auth) String() string {
 }
 
 func (Host_Auth) Descriptor() protoreflect.EnumDescriptor {
-	return file_sshm_proto_enumTypes[2].Descriptor()
+	return file_postern_proto_enumTypes[2].Descriptor()
 }
 
 func (Host_Auth) Type() protoreflect.EnumType {
-	return &file_sshm_proto_enumTypes[2]
+	return &file_postern_proto_enumTypes[2]
 }
 
 func (x Host_Auth) Number() protoreflect.EnumNumber {
@@ -193,7 +193,7 @@ func (x Host_Auth) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Host_Auth.Descriptor instead.
 func (Host_Auth) EnumDescriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{4, 0}
+	return file_postern_proto_rawDescGZIP(), []int{4, 0}
 }
 
 type HostKey_Status int32
@@ -232,11 +232,11 @@ func (x HostKey_Status) String() string {
 }
 
 func (HostKey_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_sshm_proto_enumTypes[3].Descriptor()
+	return file_postern_proto_enumTypes[3].Descriptor()
 }
 
 func (HostKey_Status) Type() protoreflect.EnumType {
-	return &file_sshm_proto_enumTypes[3]
+	return &file_postern_proto_enumTypes[3]
 }
 
 func (x HostKey_Status) Number() protoreflect.EnumNumber {
@@ -245,7 +245,7 @@ func (x HostKey_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use HostKey_Status.Descriptor instead.
 func (HostKey_Status) EnumDescriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{7, 0}
+	return file_postern_proto_rawDescGZIP(), []int{7, 0}
 }
 
 type Empty struct {
@@ -256,7 +256,7 @@ type Empty struct {
 
 func (x *Empty) Reset() {
 	*x = Empty{}
-	mi := &file_sshm_proto_msgTypes[0]
+	mi := &file_postern_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +268,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[0]
+	mi := &file_postern_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -281,7 +281,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{0}
+	return file_postern_proto_rawDescGZIP(), []int{0}
 }
 
 type State struct {
@@ -296,7 +296,7 @@ type State struct {
 
 func (x *State) Reset() {
 	*x = State{}
-	mi := &file_sshm_proto_msgTypes[1]
+	mi := &file_postern_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -308,7 +308,7 @@ func (x *State) String() string {
 func (*State) ProtoMessage() {}
 
 func (x *State) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[1]
+	mi := &file_postern_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -321,7 +321,7 @@ func (x *State) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use State.ProtoReflect.Descriptor instead.
 func (*State) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{1}
+	return file_postern_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *State) GetCoreVersion() string {
@@ -354,23 +354,23 @@ func (x *State) GetSync() *SyncState {
 
 type SyncState struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Phase         SyncState_Phase        `protobuf:"varint,1,opt,name=phase,proto3,enum=sshm.v1.SyncState_Phase" json:"phase,omitempty"`
+	Phase         SyncState_Phase        `protobuf:"varint,1,opt,name=phase,proto3,enum=selfhold.postern.v1.SyncState_Phase" json:"phase,omitempty"`
 	Enabled       bool                   `protobuf:"varint,2,opt,name=enabled,proto3" json:"enabled,omitempty"`
-	Available     bool                   `protobuf:"varint,3,opt,name=available,proto3" json:"available,omitempty"`                       // CloudSync answers on this device
+	Available     bool                   `protobuf:"varint,3,opt,name=available,proto3" json:"available,omitempty"`                       // Shard answers on this device
 	PairingCode   string                 `protobuf:"bytes,4,opt,name=pairing_code,json=pairingCode,proto3" json:"pairing_code,omitempty"` // "123 456" while PAIRING
 	Error         string                 `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`
 	Pending       bool                   `protobuf:"varint,6,opt,name=pending,proto3" json:"pending,omitempty"` // local changes not uploaded yet
 	LastSyncMs    int64                  `protobuf:"varint,7,opt,name=last_sync_ms,json=lastSyncMs,proto3" json:"last_sync_ms,omitempty"`
 	DeviceName    string                 `protobuf:"bytes,8,opt,name=device_name,json=deviceName,proto3" json:"device_name,omitempty"`
-	SharedServers bool                   `protobuf:"varint,9,opt,name=shared_servers,json=sharedServers,proto3" json:"shared_servers,omitempty"` // hosts are CloudSync's shared server list
-	SafeKeys      bool                   `protobuf:"varint,10,opt,name=safe_keys,json=safeKeys,proto3" json:"safe_keys,omitempty"`               // the SSH keys of CloudSync's safe can be used
+	SharedServers bool                   `protobuf:"varint,9,opt,name=shared_servers,json=sharedServers,proto3" json:"shared_servers,omitempty"` // hosts are Shard's shared server list
+	SafeKeys      bool                   `protobuf:"varint,10,opt,name=safe_keys,json=safeKeys,proto3" json:"safe_keys,omitempty"`               // the SSH keys of Shard's safe can be used
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *SyncState) Reset() {
 	*x = SyncState{}
-	mi := &file_sshm_proto_msgTypes[2]
+	mi := &file_postern_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -382,7 +382,7 @@ func (x *SyncState) String() string {
 func (*SyncState) ProtoMessage() {}
 
 func (x *SyncState) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[2]
+	mi := &file_postern_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -395,7 +395,7 @@ func (x *SyncState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SyncState.ProtoReflect.Descriptor instead.
 func (*SyncState) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{2}
+	return file_postern_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SyncState) GetPhase() SyncState_Phase {
@@ -470,7 +470,7 @@ func (x *SyncState) GetSafeKeys() bool {
 
 type Event struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Kind          Event_Kind             `protobuf:"varint,1,opt,name=kind,proto3,enum=sshm.v1.Event_Kind" json:"kind,omitempty"`
+	Kind          Event_Kind             `protobuf:"varint,1,opt,name=kind,proto3,enum=selfhold.postern.v1.Event_Kind" json:"kind,omitempty"`
 	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -478,7 +478,7 @@ type Event struct {
 
 func (x *Event) Reset() {
 	*x = Event{}
-	mi := &file_sshm_proto_msgTypes[3]
+	mi := &file_postern_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -490,7 +490,7 @@ func (x *Event) String() string {
 func (*Event) ProtoMessage() {}
 
 func (x *Event) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[3]
+	mi := &file_postern_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -503,7 +503,7 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Event.ProtoReflect.Descriptor instead.
 func (*Event) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{3}
+	return file_postern_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Event) GetKind() Event_Kind {
@@ -528,7 +528,7 @@ type Host struct {
 	Address       string                 `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
 	Port          uint32                 `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"` // 0 = 22
 	User          string                 `protobuf:"bytes,6,opt,name=user,proto3" json:"user,omitempty"`
-	Auth          Host_Auth              `protobuf:"varint,7,opt,name=auth,proto3,enum=sshm.v1.Host_Auth" json:"auth,omitempty"`
+	Auth          Host_Auth              `protobuf:"varint,7,opt,name=auth,proto3,enum=selfhold.postern.v1.Host_Auth" json:"auth,omitempty"`
 	Password      string                 `protobuf:"bytes,8,opt,name=password,proto3" json:"password,omitempty"`
 	PrivateKey    string                 `protobuf:"bytes,9,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"` // PEM / OpenSSH
 	Passphrase    string                 `protobuf:"bytes,10,opt,name=passphrase,proto3" json:"passphrase,omitempty"`
@@ -545,7 +545,7 @@ type Host struct {
 
 func (x *Host) Reset() {
 	*x = Host{}
-	mi := &file_sshm_proto_msgTypes[4]
+	mi := &file_postern_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -557,7 +557,7 @@ func (x *Host) String() string {
 func (*Host) ProtoMessage() {}
 
 func (x *Host) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[4]
+	mi := &file_postern_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -570,7 +570,7 @@ func (x *Host) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Host.ProtoReflect.Descriptor instead.
 func (*Host) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{4}
+	return file_postern_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Host) GetId() string {
@@ -701,7 +701,7 @@ type HostList struct {
 
 func (x *HostList) Reset() {
 	*x = HostList{}
-	mi := &file_sshm_proto_msgTypes[5]
+	mi := &file_postern_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -713,7 +713,7 @@ func (x *HostList) String() string {
 func (*HostList) ProtoMessage() {}
 
 func (x *HostList) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[5]
+	mi := &file_postern_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -726,7 +726,7 @@ func (x *HostList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HostList.ProtoReflect.Descriptor instead.
 func (*HostList) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{5}
+	return file_postern_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *HostList) GetHosts() []*Host {
@@ -745,7 +745,7 @@ type HostRef struct {
 
 func (x *HostRef) Reset() {
 	*x = HostRef{}
-	mi := &file_sshm_proto_msgTypes[6]
+	mi := &file_postern_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -757,7 +757,7 @@ func (x *HostRef) String() string {
 func (*HostRef) ProtoMessage() {}
 
 func (x *HostRef) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[6]
+	mi := &file_postern_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -770,7 +770,7 @@ func (x *HostRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HostRef.ProtoReflect.Descriptor instead.
 func (*HostRef) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{6}
+	return file_postern_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *HostRef) GetId() string {
@@ -783,7 +783,7 @@ func (x *HostRef) GetId() string {
 // ProbeHostKey answers with the key the server shows.
 type HostKey struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Status        HostKey_Status         `protobuf:"varint,1,opt,name=status,proto3,enum=sshm.v1.HostKey_Status" json:"status,omitempty"`
+	Status        HostKey_Status         `protobuf:"varint,1,opt,name=status,proto3,enum=selfhold.postern.v1.HostKey_Status" json:"status,omitempty"`
 	Key           string                 `protobuf:"bytes,2,opt,name=key,proto3" json:"key,omitempty"`                 // authorized_keys format
 	Fingerprint   string                 `protobuf:"bytes,3,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"` // SHA256:...
 	Type          string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
@@ -793,7 +793,7 @@ type HostKey struct {
 
 func (x *HostKey) Reset() {
 	*x = HostKey{}
-	mi := &file_sshm_proto_msgTypes[7]
+	mi := &file_postern_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -805,7 +805,7 @@ func (x *HostKey) String() string {
 func (*HostKey) ProtoMessage() {}
 
 func (x *HostKey) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[7]
+	mi := &file_postern_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -818,7 +818,7 @@ func (x *HostKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HostKey.ProtoReflect.Descriptor instead.
 func (*HostKey) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{7}
+	return file_postern_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *HostKey) GetStatus() HostKey_Status {
@@ -862,7 +862,7 @@ type TrustRequest struct {
 
 func (x *TrustRequest) Reset() {
 	*x = TrustRequest{}
-	mi := &file_sshm_proto_msgTypes[8]
+	mi := &file_postern_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -874,7 +874,7 @@ func (x *TrustRequest) String() string {
 func (*TrustRequest) ProtoMessage() {}
 
 func (x *TrustRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[8]
+	mi := &file_postern_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -887,7 +887,7 @@ func (x *TrustRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrustRequest.ProtoReflect.Descriptor instead.
 func (*TrustRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{8}
+	return file_postern_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *TrustRequest) GetId() string {
@@ -925,7 +925,7 @@ type ShellIn struct {
 
 func (x *ShellIn) Reset() {
 	*x = ShellIn{}
-	mi := &file_sshm_proto_msgTypes[9]
+	mi := &file_postern_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -937,7 +937,7 @@ func (x *ShellIn) String() string {
 func (*ShellIn) ProtoMessage() {}
 
 func (x *ShellIn) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[9]
+	mi := &file_postern_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -950,7 +950,7 @@ func (x *ShellIn) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShellIn.ProtoReflect.Descriptor instead.
 func (*ShellIn) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{9}
+	return file_postern_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ShellIn) GetMsg() isShellIn_Msg {
@@ -1023,7 +1023,7 @@ type ShellOut struct {
 
 func (x *ShellOut) Reset() {
 	*x = ShellOut{}
-	mi := &file_sshm_proto_msgTypes[10]
+	mi := &file_postern_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1035,7 +1035,7 @@ func (x *ShellOut) String() string {
 func (*ShellOut) ProtoMessage() {}
 
 func (x *ShellOut) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[10]
+	mi := &file_postern_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1048,7 +1048,7 @@ func (x *ShellOut) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShellOut.ProtoReflect.Descriptor instead.
 func (*ShellOut) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{10}
+	return file_postern_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ShellOut) GetMsg() isShellOut_Msg {
@@ -1121,7 +1121,7 @@ type Entry struct {
 
 func (x *Entry) Reset() {
 	*x = Entry{}
-	mi := &file_sshm_proto_msgTypes[11]
+	mi := &file_postern_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1133,7 +1133,7 @@ func (x *Entry) String() string {
 func (*Entry) ProtoMessage() {}
 
 func (x *Entry) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[11]
+	mi := &file_postern_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1146,7 +1146,7 @@ func (x *Entry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Entry.ProtoReflect.Descriptor instead.
 func (*Entry) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{11}
+	return file_postern_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Entry) GetName() string {
@@ -1201,7 +1201,7 @@ type DirRequest struct {
 
 func (x *DirRequest) Reset() {
 	*x = DirRequest{}
-	mi := &file_sshm_proto_msgTypes[12]
+	mi := &file_postern_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1213,7 +1213,7 @@ func (x *DirRequest) String() string {
 func (*DirRequest) ProtoMessage() {}
 
 func (x *DirRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[12]
+	mi := &file_postern_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1226,7 +1226,7 @@ func (x *DirRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DirRequest.ProtoReflect.Descriptor instead.
 func (*DirRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{12}
+	return file_postern_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *DirRequest) GetSide() string {
@@ -1253,7 +1253,7 @@ type DirListing struct {
 
 func (x *DirListing) Reset() {
 	*x = DirListing{}
-	mi := &file_sshm_proto_msgTypes[13]
+	mi := &file_postern_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1265,7 +1265,7 @@ func (x *DirListing) String() string {
 func (*DirListing) ProtoMessage() {}
 
 func (x *DirListing) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[13]
+	mi := &file_postern_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1278,7 +1278,7 @@ func (x *DirListing) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DirListing.ProtoReflect.Descriptor instead.
 func (*DirListing) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{13}
+	return file_postern_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *DirListing) GetPath() string {
@@ -1305,7 +1305,7 @@ type PathRequest struct {
 
 func (x *PathRequest) Reset() {
 	*x = PathRequest{}
-	mi := &file_sshm_proto_msgTypes[14]
+	mi := &file_postern_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1317,7 +1317,7 @@ func (x *PathRequest) String() string {
 func (*PathRequest) ProtoMessage() {}
 
 func (x *PathRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[14]
+	mi := &file_postern_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1330,7 +1330,7 @@ func (x *PathRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PathRequest.ProtoReflect.Descriptor instead.
 func (*PathRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{14}
+	return file_postern_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *PathRequest) GetSide() string {
@@ -1357,7 +1357,7 @@ type PathsRequest struct {
 
 func (x *PathsRequest) Reset() {
 	*x = PathsRequest{}
-	mi := &file_sshm_proto_msgTypes[15]
+	mi := &file_postern_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1369,7 +1369,7 @@ func (x *PathsRequest) String() string {
 func (*PathsRequest) ProtoMessage() {}
 
 func (x *PathsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[15]
+	mi := &file_postern_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1382,7 +1382,7 @@ func (x *PathsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PathsRequest.ProtoReflect.Descriptor instead.
 func (*PathsRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{15}
+	return file_postern_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *PathsRequest) GetSide() string {
@@ -1410,7 +1410,7 @@ type RenameRequest struct {
 
 func (x *RenameRequest) Reset() {
 	*x = RenameRequest{}
-	mi := &file_sshm_proto_msgTypes[16]
+	mi := &file_postern_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1422,7 +1422,7 @@ func (x *RenameRequest) String() string {
 func (*RenameRequest) ProtoMessage() {}
 
 func (x *RenameRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[16]
+	mi := &file_postern_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1435,7 +1435,7 @@ func (x *RenameRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RenameRequest.ProtoReflect.Descriptor instead.
 func (*RenameRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{16}
+	return file_postern_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *RenameRequest) GetSide() string {
@@ -1473,7 +1473,7 @@ type TransferRequest struct {
 
 func (x *TransferRequest) Reset() {
 	*x = TransferRequest{}
-	mi := &file_sshm_proto_msgTypes[17]
+	mi := &file_postern_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1485,7 +1485,7 @@ func (x *TransferRequest) String() string {
 func (*TransferRequest) ProtoMessage() {}
 
 func (x *TransferRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[17]
+	mi := &file_postern_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1498,7 +1498,7 @@ func (x *TransferRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferRequest.ProtoReflect.Descriptor instead.
 func (*TransferRequest) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{17}
+	return file_postern_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *TransferRequest) GetSrcSide() string {
@@ -1557,7 +1557,7 @@ type TransferProgress struct {
 
 func (x *TransferProgress) Reset() {
 	*x = TransferProgress{}
-	mi := &file_sshm_proto_msgTypes[18]
+	mi := &file_postern_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1569,7 +1569,7 @@ func (x *TransferProgress) String() string {
 func (*TransferProgress) ProtoMessage() {}
 
 func (x *TransferProgress) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[18]
+	mi := &file_postern_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1582,7 +1582,7 @@ func (x *TransferProgress) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransferProgress.ProtoReflect.Descriptor instead.
 func (*TransferProgress) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{18}
+	return file_postern_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *TransferProgress) GetDoneBytes() int64 {
@@ -1641,7 +1641,7 @@ type SafeKey struct {
 
 func (x *SafeKey) Reset() {
 	*x = SafeKey{}
-	mi := &file_sshm_proto_msgTypes[19]
+	mi := &file_postern_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1653,7 +1653,7 @@ func (x *SafeKey) String() string {
 func (*SafeKey) ProtoMessage() {}
 
 func (x *SafeKey) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[19]
+	mi := &file_postern_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1666,7 +1666,7 @@ func (x *SafeKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SafeKey.ProtoReflect.Descriptor instead.
 func (*SafeKey) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{19}
+	return file_postern_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *SafeKey) GetId() string {
@@ -1722,7 +1722,7 @@ type SafeKeyList struct {
 
 func (x *SafeKeyList) Reset() {
 	*x = SafeKeyList{}
-	mi := &file_sshm_proto_msgTypes[20]
+	mi := &file_postern_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1734,7 +1734,7 @@ func (x *SafeKeyList) String() string {
 func (*SafeKeyList) ProtoMessage() {}
 
 func (x *SafeKeyList) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[20]
+	mi := &file_postern_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1747,7 +1747,7 @@ func (x *SafeKeyList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SafeKeyList.ProtoReflect.Descriptor instead.
 func (*SafeKeyList) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{20}
+	return file_postern_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *SafeKeyList) GetKeys() []*SafeKey {
@@ -1775,7 +1775,7 @@ type ShellIn_Open struct {
 
 func (x *ShellIn_Open) Reset() {
 	*x = ShellIn_Open{}
-	mi := &file_sshm_proto_msgTypes[21]
+	mi := &file_postern_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1787,7 +1787,7 @@ func (x *ShellIn_Open) String() string {
 func (*ShellIn_Open) ProtoMessage() {}
 
 func (x *ShellIn_Open) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[21]
+	mi := &file_postern_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1800,7 +1800,7 @@ func (x *ShellIn_Open) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShellIn_Open.ProtoReflect.Descriptor instead.
 func (*ShellIn_Open) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{9, 0}
+	return file_postern_proto_rawDescGZIP(), []int{9, 0}
 }
 
 func (x *ShellIn_Open) GetHostId() string {
@@ -1834,7 +1834,7 @@ type ShellIn_Resize struct {
 
 func (x *ShellIn_Resize) Reset() {
 	*x = ShellIn_Resize{}
-	mi := &file_sshm_proto_msgTypes[22]
+	mi := &file_postern_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1846,7 +1846,7 @@ func (x *ShellIn_Resize) String() string {
 func (*ShellIn_Resize) ProtoMessage() {}
 
 func (x *ShellIn_Resize) ProtoReflect() protoreflect.Message {
-	mi := &file_sshm_proto_msgTypes[22]
+	mi := &file_postern_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1859,7 +1859,7 @@ func (x *ShellIn_Resize) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShellIn_Resize.ProtoReflect.Descriptor instead.
 func (*ShellIn_Resize) Descriptor() ([]byte, []int) {
-	return file_sshm_proto_rawDescGZIP(), []int{9, 1}
+	return file_postern_proto_rawDescGZIP(), []int{9, 1}
 }
 
 func (x *ShellIn_Resize) GetCols() uint32 {
@@ -1876,21 +1876,20 @@ func (x *ShellIn_Resize) GetRows() uint32 {
 	return 0
 }
 
-var File_sshm_proto protoreflect.FileDescriptor
+var File_postern_proto protoreflect.FileDescriptor
 
-const file_sshm_proto_rawDesc = "" +
+const file_postern_proto_rawDesc = "" +
 	"\n" +
-	"\n" +
-	"sshm.proto\x12\asshm.v1\"\a\n" +
-	"\x05Empty\"\x8d\x01\n" +
+	"\rpostern.proto\x12\x13selfhold.postern.v1\"\a\n" +
+	"\x05Empty\"\x99\x01\n" +
 	"\x05State\x12!\n" +
 	"\fcore_version\x18\x01 \x01(\tR\vcoreVersion\x12\x1d\n" +
 	"\n" +
 	"core_build\x18\x02 \x01(\tR\tcoreBuild\x12\x1a\n" +
-	"\bplatform\x18\x03 \x01(\tR\bplatform\x12&\n" +
-	"\x04sync\x18\x04 \x01(\v2\x12.sshm.v1.SyncStateR\x04sync\"\xd3\x03\n" +
-	"\tSyncState\x12.\n" +
-	"\x05phase\x18\x01 \x01(\x0e2\x18.sshm.v1.SyncState.PhaseR\x05phase\x12\x18\n" +
+	"\bplatform\x18\x03 \x01(\tR\bplatform\x122\n" +
+	"\x04sync\x18\x04 \x01(\v2\x1e.selfhold.postern.v1.SyncStateR\x04sync\"\xdf\x03\n" +
+	"\tSyncState\x12:\n" +
+	"\x05phase\x18\x01 \x01(\x0e2$.selfhold.postern.v1.SyncState.PhaseR\x05phase\x12\x18\n" +
 	"\aenabled\x18\x02 \x01(\bR\aenabled\x12\x1c\n" +
 	"\tavailable\x18\x03 \x01(\bR\tavailable\x12!\n" +
 	"\fpairing_code\x18\x04 \x01(\tR\vpairingCode\x12\x14\n" +
@@ -1914,22 +1913,22 @@ const file_sshm_proto_rawDesc = "" +
 	"\aOFFLINE\x10\x06\x12\n" +
 	"\n" +
 	"\x06SYNCED\x10\a\x12\t\n" +
-	"\x05ERROR\x10\b\"}\n" +
-	"\x05Event\x12'\n" +
-	"\x04kind\x18\x01 \x01(\x0e2\x13.sshm.v1.Event.KindR\x04kind\x12\x18\n" +
+	"\x05ERROR\x10\b\"\x89\x01\n" +
+	"\x05Event\x123\n" +
+	"\x04kind\x18\x01 \x01(\x0e2\x1f.selfhold.postern.v1.Event.KindR\x04kind\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\"1\n" +
 	"\x04Kind\x12\x14\n" +
 	"\x10KIND_UNSPECIFIED\x10\x00\x12\t\n" +
 	"\x05HOSTS\x10\x01\x12\b\n" +
-	"\x04SYNC\x10\x02\"\x88\x04\n" +
+	"\x04SYNC\x10\x02\"\x94\x04\n" +
 	"\x04Host\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
 	"\x05group\x18\x03 \x01(\tR\x05group\x12\x18\n" +
 	"\aaddress\x18\x04 \x01(\tR\aaddress\x12\x12\n" +
 	"\x04port\x18\x05 \x01(\rR\x04port\x12\x12\n" +
-	"\x04user\x18\x06 \x01(\tR\x04user\x12&\n" +
-	"\x04auth\x18\a \x01(\x0e2\x12.sshm.v1.Host.AuthR\x04auth\x12\x1a\n" +
+	"\x04user\x18\x06 \x01(\tR\x04user\x122\n" +
+	"\x04auth\x18\a \x01(\x0e2\x1e.selfhold.postern.v1.Host.AuthR\x04auth\x12\x1a\n" +
 	"\bpassword\x18\b \x01(\tR\bpassword\x12\x1f\n" +
 	"\vprivate_key\x18\t \x01(\tR\n" +
 	"privateKey\x12\x1e\n" +
@@ -1950,13 +1949,13 @@ const file_sshm_proto_rawDesc = "" +
 	"\bPASSWORD\x10\x01\x12\a\n" +
 	"\x03KEY\x10\x02\x12\t\n" +
 	"\x05AGENT\x10\x03\x12\f\n" +
-	"\bSAFE_KEY\x10\x04\"/\n" +
-	"\bHostList\x12#\n" +
-	"\x05hosts\x18\x01 \x03(\v2\r.sshm.v1.HostR\x05hosts\"\x19\n" +
+	"\bSAFE_KEY\x10\x04\";\n" +
+	"\bHostList\x12/\n" +
+	"\x05hosts\x18\x01 \x03(\v2\x19.selfhold.postern.v1.HostR\x05hosts\"\x19\n" +
 	"\aHostRef\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"\xc9\x01\n" +
-	"\aHostKey\x12/\n" +
-	"\x06status\x18\x01 \x01(\x0e2\x17.sshm.v1.HostKey.StatusR\x06status\x12\x10\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\xd5\x01\n" +
+	"\aHostKey\x12;\n" +
+	"\x06status\x18\x01 \x01(\x0e2#.selfhold.postern.v1.HostKey.StatusR\x06status\x12\x10\n" +
 	"\x03key\x18\x02 \x01(\tR\x03key\x12 \n" +
 	"\vfingerprint\x18\x03 \x01(\tR\vfingerprint\x12\x12\n" +
 	"\x04type\x18\x04 \x01(\tR\x04type\"E\n" +
@@ -1968,11 +1967,11 @@ const file_sshm_proto_rawDesc = "" +
 	"\fTrustRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
 	"\x03key\x18\x02 \x01(\tR\x03key\x12\x18\n" +
-	"\areplace\x18\x03 \x01(\bR\areplace\"\x81\x02\n" +
-	"\aShellIn\x12+\n" +
-	"\x04open\x18\x01 \x01(\v2\x15.sshm.v1.ShellIn.OpenH\x00R\x04open\x12\x14\n" +
-	"\x04data\x18\x02 \x01(\fH\x00R\x04data\x121\n" +
-	"\x06resize\x18\x03 \x01(\v2\x17.sshm.v1.ShellIn.ResizeH\x00R\x06resize\x1aG\n" +
+	"\areplace\x18\x03 \x01(\bR\areplace\"\x99\x02\n" +
+	"\aShellIn\x127\n" +
+	"\x04open\x18\x01 \x01(\v2!.selfhold.postern.v1.ShellIn.OpenH\x00R\x04open\x12\x14\n" +
+	"\x04data\x18\x02 \x01(\fH\x00R\x04data\x12=\n" +
+	"\x06resize\x18\x03 \x01(\v2#.selfhold.postern.v1.ShellIn.ResizeH\x00R\x06resize\x1aG\n" +
 	"\x04Open\x12\x17\n" +
 	"\ahost_id\x18\x01 \x01(\tR\x06hostId\x12\x12\n" +
 	"\x04cols\x18\x02 \x01(\rR\x04cols\x12\x12\n" +
@@ -1997,11 +1996,11 @@ const file_sshm_proto_rawDesc = "" +
 	"\n" +
 	"DirRequest\x12\x12\n" +
 	"\x04side\x18\x01 \x01(\tR\x04side\x12\x12\n" +
-	"\x04path\x18\x02 \x01(\tR\x04path\"J\n" +
+	"\x04path\x18\x02 \x01(\tR\x04path\"V\n" +
 	"\n" +
 	"DirListing\x12\x12\n" +
-	"\x04path\x18\x01 \x01(\tR\x04path\x12(\n" +
-	"\aentries\x18\x02 \x03(\v2\x0e.sshm.v1.EntryR\aentries\"5\n" +
+	"\x04path\x18\x01 \x01(\tR\x04path\x124\n" +
+	"\aentries\x18\x02 \x03(\v2\x1a.selfhold.postern.v1.EntryR\aentries\"5\n" +
 	"\vPathRequest\x12\x12\n" +
 	"\x04side\x18\x01 \x01(\tR\x04side\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\"8\n" +
@@ -2037,122 +2036,123 @@ const file_sshm_proto_rawDesc = "" +
 	"\vfingerprint\x18\x04 \x01(\tR\vfingerprint\x12\x1d\n" +
 	"\n" +
 	"public_key\x18\x05 \x01(\tR\tpublicKey\x12\x18\n" +
-	"\acomment\x18\x06 \x01(\tR\acomment\"U\n" +
-	"\vSafeKeyList\x12$\n" +
-	"\x04keys\x18\x01 \x03(\v2\x10.sshm.v1.SafeKeyR\x04keys\x12 \n" +
-	"\vunavailable\x18\x02 \x01(\tR\vunavailable2\x8b\a\n" +
-	"\x04Core\x12*\n" +
-	"\bGetState\x12\x0e.sshm.v1.Empty\x1a\x0e.sshm.v1.State\x12*\n" +
-	"\x06Events\x12\x0e.sshm.v1.Empty\x1a\x0e.sshm.v1.Event0\x01\x12.\n" +
-	"\tListHosts\x12\x0e.sshm.v1.Empty\x1a\x11.sshm.v1.HostList\x12(\n" +
-	"\bSaveHost\x12\r.sshm.v1.Host\x1a\r.sshm.v1.Host\x12.\n" +
+	"\acomment\x18\x06 \x01(\tR\acomment\"a\n" +
+	"\vSafeKeyList\x120\n" +
+	"\x04keys\x18\x01 \x03(\v2\x1c.selfhold.postern.v1.SafeKeyR\x04keys\x12 \n" +
+	"\vunavailable\x18\x02 \x01(\tR\vunavailable2\xbb\n" +
 	"\n" +
-	"DeleteHost\x12\x10.sshm.v1.HostRef\x1a\x0e.sshm.v1.Empty\x122\n" +
-	"\fProbeHostKey\x12\x10.sshm.v1.HostRef\x1a\x10.sshm.v1.HostKey\x124\n" +
-	"\fTrustHostKey\x12\x15.sshm.v1.TrustRequest\x1a\r.sshm.v1.Host\x120\n" +
-	"\x05Shell\x12\x10.sshm.v1.ShellIn\x1a\x11.sshm.v1.ShellOut(\x010\x01\x123\n" +
-	"\aListDir\x12\x13.sshm.v1.DirRequest\x1a\x13.sshm.v1.DirListing\x12/\n" +
-	"\aMakeDir\x12\x14.sshm.v1.PathRequest\x1a\x0e.sshm.v1.Empty\x12/\n" +
-	"\x06Remove\x12\x15.sshm.v1.PathsRequest\x1a\x0e.sshm.v1.Empty\x120\n" +
-	"\x06Rename\x12\x16.sshm.v1.RenameRequest\x1a\x0e.sshm.v1.Empty\x12A\n" +
-	"\bTransfer\x12\x18.sshm.v1.TransferRequest\x1a\x19.sshm.v1.TransferProgress0\x01\x120\n" +
+	"\x04Core\x12B\n" +
+	"\bGetState\x12\x1a.selfhold.postern.v1.Empty\x1a\x1a.selfhold.postern.v1.State\x12B\n" +
+	"\x06Events\x12\x1a.selfhold.postern.v1.Empty\x1a\x1a.selfhold.postern.v1.Event0\x01\x12F\n" +
+	"\tListHosts\x12\x1a.selfhold.postern.v1.Empty\x1a\x1d.selfhold.postern.v1.HostList\x12@\n" +
+	"\bSaveHost\x12\x19.selfhold.postern.v1.Host\x1a\x19.selfhold.postern.v1.Host\x12F\n" +
 	"\n" +
-	"EnableSync\x12\x0e.sshm.v1.Empty\x1a\x12.sshm.v1.SyncState\x121\n" +
-	"\vDisableSync\x12\x0e.sshm.v1.Empty\x1a\x12.sshm.v1.SyncState\x12-\n" +
-	"\aSyncNow\x12\x0e.sshm.v1.Empty\x1a\x12.sshm.v1.SyncState\x123\n" +
-	"\rRequestAccess\x12\x0e.sshm.v1.Empty\x1a\x12.sshm.v1.SyncState\x120\n" +
-	"\bSafeKeys\x12\x0e.sshm.v1.Empty\x1a\x14.sshm.v1.SafeKeyListB\x18Z\x16sshmanager/core/rpc/pbb\x06proto3"
+	"DeleteHost\x12\x1c.selfhold.postern.v1.HostRef\x1a\x1a.selfhold.postern.v1.Empty\x12J\n" +
+	"\fProbeHostKey\x12\x1c.selfhold.postern.v1.HostRef\x1a\x1c.selfhold.postern.v1.HostKey\x12L\n" +
+	"\fTrustHostKey\x12!.selfhold.postern.v1.TrustRequest\x1a\x19.selfhold.postern.v1.Host\x12H\n" +
+	"\x05Shell\x12\x1c.selfhold.postern.v1.ShellIn\x1a\x1d.selfhold.postern.v1.ShellOut(\x010\x01\x12K\n" +
+	"\aListDir\x12\x1f.selfhold.postern.v1.DirRequest\x1a\x1f.selfhold.postern.v1.DirListing\x12G\n" +
+	"\aMakeDir\x12 .selfhold.postern.v1.PathRequest\x1a\x1a.selfhold.postern.v1.Empty\x12G\n" +
+	"\x06Remove\x12!.selfhold.postern.v1.PathsRequest\x1a\x1a.selfhold.postern.v1.Empty\x12H\n" +
+	"\x06Rename\x12\".selfhold.postern.v1.RenameRequest\x1a\x1a.selfhold.postern.v1.Empty\x12Y\n" +
+	"\bTransfer\x12$.selfhold.postern.v1.TransferRequest\x1a%.selfhold.postern.v1.TransferProgress0\x01\x12H\n" +
+	"\n" +
+	"EnableSync\x12\x1a.selfhold.postern.v1.Empty\x1a\x1e.selfhold.postern.v1.SyncState\x12I\n" +
+	"\vDisableSync\x12\x1a.selfhold.postern.v1.Empty\x1a\x1e.selfhold.postern.v1.SyncState\x12E\n" +
+	"\aSyncNow\x12\x1a.selfhold.postern.v1.Empty\x1a\x1e.selfhold.postern.v1.SyncState\x12K\n" +
+	"\rRequestAccess\x12\x1a.selfhold.postern.v1.Empty\x1a\x1e.selfhold.postern.v1.SyncState\x12H\n" +
+	"\bSafeKeys\x12\x1a.selfhold.postern.v1.Empty\x1a .selfhold.postern.v1.SafeKeyListB)Z'github.com/SelfHold/postern/core/rpc/pbb\x06proto3"
 
 var (
-	file_sshm_proto_rawDescOnce sync.Once
-	file_sshm_proto_rawDescData []byte
+	file_postern_proto_rawDescOnce sync.Once
+	file_postern_proto_rawDescData []byte
 )
 
-func file_sshm_proto_rawDescGZIP() []byte {
-	file_sshm_proto_rawDescOnce.Do(func() {
-		file_sshm_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_sshm_proto_rawDesc), len(file_sshm_proto_rawDesc)))
+func file_postern_proto_rawDescGZIP() []byte {
+	file_postern_proto_rawDescOnce.Do(func() {
+		file_postern_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_postern_proto_rawDesc), len(file_postern_proto_rawDesc)))
 	})
-	return file_sshm_proto_rawDescData
+	return file_postern_proto_rawDescData
 }
 
-var file_sshm_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
-var file_sshm_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
-var file_sshm_proto_goTypes = []any{
-	(SyncState_Phase)(0),     // 0: sshm.v1.SyncState.Phase
-	(Event_Kind)(0),          // 1: sshm.v1.Event.Kind
-	(Host_Auth)(0),           // 2: sshm.v1.Host.Auth
-	(HostKey_Status)(0),      // 3: sshm.v1.HostKey.Status
-	(*Empty)(nil),            // 4: sshm.v1.Empty
-	(*State)(nil),            // 5: sshm.v1.State
-	(*SyncState)(nil),        // 6: sshm.v1.SyncState
-	(*Event)(nil),            // 7: sshm.v1.Event
-	(*Host)(nil),             // 8: sshm.v1.Host
-	(*HostList)(nil),         // 9: sshm.v1.HostList
-	(*HostRef)(nil),          // 10: sshm.v1.HostRef
-	(*HostKey)(nil),          // 11: sshm.v1.HostKey
-	(*TrustRequest)(nil),     // 12: sshm.v1.TrustRequest
-	(*ShellIn)(nil),          // 13: sshm.v1.ShellIn
-	(*ShellOut)(nil),         // 14: sshm.v1.ShellOut
-	(*Entry)(nil),            // 15: sshm.v1.Entry
-	(*DirRequest)(nil),       // 16: sshm.v1.DirRequest
-	(*DirListing)(nil),       // 17: sshm.v1.DirListing
-	(*PathRequest)(nil),      // 18: sshm.v1.PathRequest
-	(*PathsRequest)(nil),     // 19: sshm.v1.PathsRequest
-	(*RenameRequest)(nil),    // 20: sshm.v1.RenameRequest
-	(*TransferRequest)(nil),  // 21: sshm.v1.TransferRequest
-	(*TransferProgress)(nil), // 22: sshm.v1.TransferProgress
-	(*SafeKey)(nil),          // 23: sshm.v1.SafeKey
-	(*SafeKeyList)(nil),      // 24: sshm.v1.SafeKeyList
-	(*ShellIn_Open)(nil),     // 25: sshm.v1.ShellIn.Open
-	(*ShellIn_Resize)(nil),   // 26: sshm.v1.ShellIn.Resize
+var file_postern_proto_enumTypes = make([]protoimpl.EnumInfo, 4)
+var file_postern_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
+var file_postern_proto_goTypes = []any{
+	(SyncState_Phase)(0),     // 0: selfhold.postern.v1.SyncState.Phase
+	(Event_Kind)(0),          // 1: selfhold.postern.v1.Event.Kind
+	(Host_Auth)(0),           // 2: selfhold.postern.v1.Host.Auth
+	(HostKey_Status)(0),      // 3: selfhold.postern.v1.HostKey.Status
+	(*Empty)(nil),            // 4: selfhold.postern.v1.Empty
+	(*State)(nil),            // 5: selfhold.postern.v1.State
+	(*SyncState)(nil),        // 6: selfhold.postern.v1.SyncState
+	(*Event)(nil),            // 7: selfhold.postern.v1.Event
+	(*Host)(nil),             // 8: selfhold.postern.v1.Host
+	(*HostList)(nil),         // 9: selfhold.postern.v1.HostList
+	(*HostRef)(nil),          // 10: selfhold.postern.v1.HostRef
+	(*HostKey)(nil),          // 11: selfhold.postern.v1.HostKey
+	(*TrustRequest)(nil),     // 12: selfhold.postern.v1.TrustRequest
+	(*ShellIn)(nil),          // 13: selfhold.postern.v1.ShellIn
+	(*ShellOut)(nil),         // 14: selfhold.postern.v1.ShellOut
+	(*Entry)(nil),            // 15: selfhold.postern.v1.Entry
+	(*DirRequest)(nil),       // 16: selfhold.postern.v1.DirRequest
+	(*DirListing)(nil),       // 17: selfhold.postern.v1.DirListing
+	(*PathRequest)(nil),      // 18: selfhold.postern.v1.PathRequest
+	(*PathsRequest)(nil),     // 19: selfhold.postern.v1.PathsRequest
+	(*RenameRequest)(nil),    // 20: selfhold.postern.v1.RenameRequest
+	(*TransferRequest)(nil),  // 21: selfhold.postern.v1.TransferRequest
+	(*TransferProgress)(nil), // 22: selfhold.postern.v1.TransferProgress
+	(*SafeKey)(nil),          // 23: selfhold.postern.v1.SafeKey
+	(*SafeKeyList)(nil),      // 24: selfhold.postern.v1.SafeKeyList
+	(*ShellIn_Open)(nil),     // 25: selfhold.postern.v1.ShellIn.Open
+	(*ShellIn_Resize)(nil),   // 26: selfhold.postern.v1.ShellIn.Resize
 }
-var file_sshm_proto_depIdxs = []int32{
-	6,  // 0: sshm.v1.State.sync:type_name -> sshm.v1.SyncState
-	0,  // 1: sshm.v1.SyncState.phase:type_name -> sshm.v1.SyncState.Phase
-	1,  // 2: sshm.v1.Event.kind:type_name -> sshm.v1.Event.Kind
-	2,  // 3: sshm.v1.Host.auth:type_name -> sshm.v1.Host.Auth
-	8,  // 4: sshm.v1.HostList.hosts:type_name -> sshm.v1.Host
-	3,  // 5: sshm.v1.HostKey.status:type_name -> sshm.v1.HostKey.Status
-	25, // 6: sshm.v1.ShellIn.open:type_name -> sshm.v1.ShellIn.Open
-	26, // 7: sshm.v1.ShellIn.resize:type_name -> sshm.v1.ShellIn.Resize
-	15, // 8: sshm.v1.DirListing.entries:type_name -> sshm.v1.Entry
-	23, // 9: sshm.v1.SafeKeyList.keys:type_name -> sshm.v1.SafeKey
-	4,  // 10: sshm.v1.Core.GetState:input_type -> sshm.v1.Empty
-	4,  // 11: sshm.v1.Core.Events:input_type -> sshm.v1.Empty
-	4,  // 12: sshm.v1.Core.ListHosts:input_type -> sshm.v1.Empty
-	8,  // 13: sshm.v1.Core.SaveHost:input_type -> sshm.v1.Host
-	10, // 14: sshm.v1.Core.DeleteHost:input_type -> sshm.v1.HostRef
-	10, // 15: sshm.v1.Core.ProbeHostKey:input_type -> sshm.v1.HostRef
-	12, // 16: sshm.v1.Core.TrustHostKey:input_type -> sshm.v1.TrustRequest
-	13, // 17: sshm.v1.Core.Shell:input_type -> sshm.v1.ShellIn
-	16, // 18: sshm.v1.Core.ListDir:input_type -> sshm.v1.DirRequest
-	18, // 19: sshm.v1.Core.MakeDir:input_type -> sshm.v1.PathRequest
-	19, // 20: sshm.v1.Core.Remove:input_type -> sshm.v1.PathsRequest
-	20, // 21: sshm.v1.Core.Rename:input_type -> sshm.v1.RenameRequest
-	21, // 22: sshm.v1.Core.Transfer:input_type -> sshm.v1.TransferRequest
-	4,  // 23: sshm.v1.Core.EnableSync:input_type -> sshm.v1.Empty
-	4,  // 24: sshm.v1.Core.DisableSync:input_type -> sshm.v1.Empty
-	4,  // 25: sshm.v1.Core.SyncNow:input_type -> sshm.v1.Empty
-	4,  // 26: sshm.v1.Core.RequestAccess:input_type -> sshm.v1.Empty
-	4,  // 27: sshm.v1.Core.SafeKeys:input_type -> sshm.v1.Empty
-	5,  // 28: sshm.v1.Core.GetState:output_type -> sshm.v1.State
-	7,  // 29: sshm.v1.Core.Events:output_type -> sshm.v1.Event
-	9,  // 30: sshm.v1.Core.ListHosts:output_type -> sshm.v1.HostList
-	8,  // 31: sshm.v1.Core.SaveHost:output_type -> sshm.v1.Host
-	4,  // 32: sshm.v1.Core.DeleteHost:output_type -> sshm.v1.Empty
-	11, // 33: sshm.v1.Core.ProbeHostKey:output_type -> sshm.v1.HostKey
-	8,  // 34: sshm.v1.Core.TrustHostKey:output_type -> sshm.v1.Host
-	14, // 35: sshm.v1.Core.Shell:output_type -> sshm.v1.ShellOut
-	17, // 36: sshm.v1.Core.ListDir:output_type -> sshm.v1.DirListing
-	4,  // 37: sshm.v1.Core.MakeDir:output_type -> sshm.v1.Empty
-	4,  // 38: sshm.v1.Core.Remove:output_type -> sshm.v1.Empty
-	4,  // 39: sshm.v1.Core.Rename:output_type -> sshm.v1.Empty
-	22, // 40: sshm.v1.Core.Transfer:output_type -> sshm.v1.TransferProgress
-	6,  // 41: sshm.v1.Core.EnableSync:output_type -> sshm.v1.SyncState
-	6,  // 42: sshm.v1.Core.DisableSync:output_type -> sshm.v1.SyncState
-	6,  // 43: sshm.v1.Core.SyncNow:output_type -> sshm.v1.SyncState
-	6,  // 44: sshm.v1.Core.RequestAccess:output_type -> sshm.v1.SyncState
-	24, // 45: sshm.v1.Core.SafeKeys:output_type -> sshm.v1.SafeKeyList
+var file_postern_proto_depIdxs = []int32{
+	6,  // 0: selfhold.postern.v1.State.sync:type_name -> selfhold.postern.v1.SyncState
+	0,  // 1: selfhold.postern.v1.SyncState.phase:type_name -> selfhold.postern.v1.SyncState.Phase
+	1,  // 2: selfhold.postern.v1.Event.kind:type_name -> selfhold.postern.v1.Event.Kind
+	2,  // 3: selfhold.postern.v1.Host.auth:type_name -> selfhold.postern.v1.Host.Auth
+	8,  // 4: selfhold.postern.v1.HostList.hosts:type_name -> selfhold.postern.v1.Host
+	3,  // 5: selfhold.postern.v1.HostKey.status:type_name -> selfhold.postern.v1.HostKey.Status
+	25, // 6: selfhold.postern.v1.ShellIn.open:type_name -> selfhold.postern.v1.ShellIn.Open
+	26, // 7: selfhold.postern.v1.ShellIn.resize:type_name -> selfhold.postern.v1.ShellIn.Resize
+	15, // 8: selfhold.postern.v1.DirListing.entries:type_name -> selfhold.postern.v1.Entry
+	23, // 9: selfhold.postern.v1.SafeKeyList.keys:type_name -> selfhold.postern.v1.SafeKey
+	4,  // 10: selfhold.postern.v1.Core.GetState:input_type -> selfhold.postern.v1.Empty
+	4,  // 11: selfhold.postern.v1.Core.Events:input_type -> selfhold.postern.v1.Empty
+	4,  // 12: selfhold.postern.v1.Core.ListHosts:input_type -> selfhold.postern.v1.Empty
+	8,  // 13: selfhold.postern.v1.Core.SaveHost:input_type -> selfhold.postern.v1.Host
+	10, // 14: selfhold.postern.v1.Core.DeleteHost:input_type -> selfhold.postern.v1.HostRef
+	10, // 15: selfhold.postern.v1.Core.ProbeHostKey:input_type -> selfhold.postern.v1.HostRef
+	12, // 16: selfhold.postern.v1.Core.TrustHostKey:input_type -> selfhold.postern.v1.TrustRequest
+	13, // 17: selfhold.postern.v1.Core.Shell:input_type -> selfhold.postern.v1.ShellIn
+	16, // 18: selfhold.postern.v1.Core.ListDir:input_type -> selfhold.postern.v1.DirRequest
+	18, // 19: selfhold.postern.v1.Core.MakeDir:input_type -> selfhold.postern.v1.PathRequest
+	19, // 20: selfhold.postern.v1.Core.Remove:input_type -> selfhold.postern.v1.PathsRequest
+	20, // 21: selfhold.postern.v1.Core.Rename:input_type -> selfhold.postern.v1.RenameRequest
+	21, // 22: selfhold.postern.v1.Core.Transfer:input_type -> selfhold.postern.v1.TransferRequest
+	4,  // 23: selfhold.postern.v1.Core.EnableSync:input_type -> selfhold.postern.v1.Empty
+	4,  // 24: selfhold.postern.v1.Core.DisableSync:input_type -> selfhold.postern.v1.Empty
+	4,  // 25: selfhold.postern.v1.Core.SyncNow:input_type -> selfhold.postern.v1.Empty
+	4,  // 26: selfhold.postern.v1.Core.RequestAccess:input_type -> selfhold.postern.v1.Empty
+	4,  // 27: selfhold.postern.v1.Core.SafeKeys:input_type -> selfhold.postern.v1.Empty
+	5,  // 28: selfhold.postern.v1.Core.GetState:output_type -> selfhold.postern.v1.State
+	7,  // 29: selfhold.postern.v1.Core.Events:output_type -> selfhold.postern.v1.Event
+	9,  // 30: selfhold.postern.v1.Core.ListHosts:output_type -> selfhold.postern.v1.HostList
+	8,  // 31: selfhold.postern.v1.Core.SaveHost:output_type -> selfhold.postern.v1.Host
+	4,  // 32: selfhold.postern.v1.Core.DeleteHost:output_type -> selfhold.postern.v1.Empty
+	11, // 33: selfhold.postern.v1.Core.ProbeHostKey:output_type -> selfhold.postern.v1.HostKey
+	8,  // 34: selfhold.postern.v1.Core.TrustHostKey:output_type -> selfhold.postern.v1.Host
+	14, // 35: selfhold.postern.v1.Core.Shell:output_type -> selfhold.postern.v1.ShellOut
+	17, // 36: selfhold.postern.v1.Core.ListDir:output_type -> selfhold.postern.v1.DirListing
+	4,  // 37: selfhold.postern.v1.Core.MakeDir:output_type -> selfhold.postern.v1.Empty
+	4,  // 38: selfhold.postern.v1.Core.Remove:output_type -> selfhold.postern.v1.Empty
+	4,  // 39: selfhold.postern.v1.Core.Rename:output_type -> selfhold.postern.v1.Empty
+	22, // 40: selfhold.postern.v1.Core.Transfer:output_type -> selfhold.postern.v1.TransferProgress
+	6,  // 41: selfhold.postern.v1.Core.EnableSync:output_type -> selfhold.postern.v1.SyncState
+	6,  // 42: selfhold.postern.v1.Core.DisableSync:output_type -> selfhold.postern.v1.SyncState
+	6,  // 43: selfhold.postern.v1.Core.SyncNow:output_type -> selfhold.postern.v1.SyncState
+	6,  // 44: selfhold.postern.v1.Core.RequestAccess:output_type -> selfhold.postern.v1.SyncState
+	24, // 45: selfhold.postern.v1.Core.SafeKeys:output_type -> selfhold.postern.v1.SafeKeyList
 	28, // [28:46] is the sub-list for method output_type
 	10, // [10:28] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
@@ -2160,17 +2160,17 @@ var file_sshm_proto_depIdxs = []int32{
 	0,  // [0:10] is the sub-list for field type_name
 }
 
-func init() { file_sshm_proto_init() }
-func file_sshm_proto_init() {
-	if File_sshm_proto != nil {
+func init() { file_postern_proto_init() }
+func file_postern_proto_init() {
+	if File_postern_proto != nil {
 		return
 	}
-	file_sshm_proto_msgTypes[9].OneofWrappers = []any{
+	file_postern_proto_msgTypes[9].OneofWrappers = []any{
 		(*ShellIn_Open_)(nil),
 		(*ShellIn_Data)(nil),
 		(*ShellIn_Resize_)(nil),
 	}
-	file_sshm_proto_msgTypes[10].OneofWrappers = []any{
+	file_postern_proto_msgTypes[10].OneofWrappers = []any{
 		(*ShellOut_Opened)(nil),
 		(*ShellOut_Data)(nil),
 		(*ShellOut_Closed)(nil),
@@ -2179,18 +2179,18 @@ func file_sshm_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sshm_proto_rawDesc), len(file_sshm_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_postern_proto_rawDesc), len(file_postern_proto_rawDesc)),
 			NumEnums:      4,
 			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_sshm_proto_goTypes,
-		DependencyIndexes: file_sshm_proto_depIdxs,
-		EnumInfos:         file_sshm_proto_enumTypes,
-		MessageInfos:      file_sshm_proto_msgTypes,
+		GoTypes:           file_postern_proto_goTypes,
+		DependencyIndexes: file_postern_proto_depIdxs,
+		EnumInfos:         file_postern_proto_enumTypes,
+		MessageInfos:      file_postern_proto_msgTypes,
 	}.Build()
-	File_sshm_proto = out.File
-	file_sshm_proto_goTypes = nil
-	file_sshm_proto_depIdxs = nil
+	File_postern_proto = out.File
+	file_postern_proto_goTypes = nil
+	file_postern_proto_depIdxs = nil
 }

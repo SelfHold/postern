@@ -1,6 +1,6 @@
 // This is a generated file - do not edit.
 //
-// Generated from sshm.proto.
+// Generated from postern.proto.
 
 // @dart = 3.3
 

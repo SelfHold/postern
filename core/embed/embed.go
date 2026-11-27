@@ -21,16 +21,16 @@ import (
 
 	"google.golang.org/grpc"
 
-	"sshmanager/core/cloudsync"
-	"sshmanager/core/fsys"
-	"sshmanager/core/hosts"
-	"sshmanager/core/rpc"
-	"sshmanager/core/rpc/pb"
+	"github.com/SelfHold/postern/core/fsys"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/rpc"
+	"github.com/SelfHold/postern/core/rpc/pb"
+	"github.com/SelfHold/postern/core/shard"
 )
 
 // Options say where the core keeps its files and listens.
 type Options struct {
-	Dir      string // hosts.json, cloudsync.json
+	Dir      string // hosts.json, shard.json
 	Platform string // runtime.GOOS when empty
 	Listen   string // unix:PATH
 	// Endpoint, when set, is where address and token are written
@@ -41,8 +41,8 @@ type Options struct {
 	// Home is the first folder of the file manager on this device (""
 	// = the user's home).
 	Home string
-	// CloudSync reaches CloudSync (CONNECTOR.md); nil: its desktop daemon.
-	CloudSync cloudsync.Dialer
+	// Shard reaches Shard (CONNECTOR.md); nil: its desktop daemon.
+	Shard shard.Dialer
 }
 
 // Core is a running core.
@@ -57,7 +57,7 @@ type Core struct {
 }
 
 // ErrRunning: another process of this user already runs the core.
-var ErrRunning = errors.New("SSH Manager is already running")
+var ErrRunning = errors.New("Postern is already running")
 
 // Start opens the socket and serves the API.
 func Start(o Options) (*Core, error) {
@@ -84,12 +84,12 @@ func Start(o Options) (*Core, error) {
 	if err != nil {
 		return fail(err)
 	}
-	d := o.CloudSync
+	d := o.Shard
 	if d == nil {
-		d = cloudsync.DesktopDialer{}
+		d = shard.DesktopDialer{}
 	}
-	desc := fmt.Sprintf("%s %s on %s", cloudsync.AppName, rpc.Version, o.Platform)
-	syncer, err := cloudsync.New(d, store, filepath.Join(o.Dir, "cloudsync.json"), desc)
+	desc := fmt.Sprintf("%s %s on %s", shard.AppName, rpc.Version, o.Platform)
+	syncer, err := shard.New(d, store, filepath.Join(o.Dir, "shard.json"), desc)
 	if err != nil {
 		return fail(err)
 	}
@@ -138,22 +138,22 @@ func (c *Core) Stop() {
 }
 
 // DefaultDir is where the desktop core keeps its files: the user's config
-// dir/sshmanager (~/.config/sshmanager).
+// dir/selfhold/postern (~/.config/selfhold/postern).
 func DefaultDir() string {
 	cfg, err := os.UserConfigDir()
 	if err != nil {
 		cfg = "."
 	}
-	return filepath.Join(cfg, "sshmanager")
+	return filepath.Join(cfg, "selfhold", "postern")
 }
 
-// DefaultListen is the desktop socket: $XDG_RUNTIME_DIR/sshmanager.sock.
+// DefaultListen is the desktop socket: $XDG_RUNTIME_DIR/selfhold-postern.sock.
 func DefaultListen(dir string) string {
 	d := os.Getenv("XDG_RUNTIME_DIR")
 	if d == "" {
 		d = dir
 	}
-	return "unix:" + filepath.Join(d, "sshmanager.sock")
+	return "unix:" + filepath.Join(d, "selfhold-postern.sock")
 }
 
 // ReadEndpoint reads an endpoint file and says whether the core there

@@ -11,8 +11,8 @@ import 'core/theme/layout.dart';
 import 'presentation/common/overlays.dart';
 import 'presentation/shell/app_shell.dart';
 
-class SshManagerApp extends StatefulWidget {
-  const SshManagerApp({super.key, this.home = const AppShell(), this.frame});
+class PosternApp extends StatefulWidget {
+  const PosternApp({super.key, this.home = const AppShell(), this.frame});
 
   final Widget home;
 
@@ -20,10 +20,10 @@ class SshManagerApp extends StatefulWidget {
   final TransitionBuilder? frame;
 
   @override
-  State<SshManagerApp> createState() => _SshManagerAppState();
+  State<PosternApp> createState() => _PosternAppState();
 }
 
-class _SshManagerAppState extends State<SshManagerApp> {
+class _PosternAppState extends State<PosternApp> {
   @override
   void initState() {
     super.initState();
@@ -50,7 +50,7 @@ class _SshManagerAppState extends State<SshManagerApp> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'SSH Manager',
+    title: 'Postern',
     debugShowCheckedModeBanner: false,
     theme: AppTheme.dark,
     darkTheme: AppTheme.dark,

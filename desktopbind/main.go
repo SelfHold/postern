@@ -20,7 +20,7 @@ import (
 	"time"
 	"unsafe"
 
-	"sshmanager/core/embed"
+	"github.com/SelfHold/postern/core/embed"
 )
 
 var (
@@ -36,11 +36,11 @@ type reply struct {
 	Error    string `json:"error,omitempty"`
 }
 
-// SshmStart starts the core (again: returns the running one) and returns
-// JSON {"address","token"} or {"error"}; free it with SshmFree.
+// PosternStart starts the core (again: returns the running one) and returns
+// JSON {"address","token"} or {"error"}; free it with PosternFree.
 //
-//export SshmStart
-func SshmStart() *C.char {
+//export PosternStart
+func PosternStart() *C.char {
 	return cjson(start())
 }
 
@@ -65,11 +65,11 @@ func start() reply {
 	return reply{Address: c.Address, Token: c.Token}
 }
 
-// SshmStop closes the SSH connections and stops the server. It is called
+// PosternStop closes the SSH connections and stops the server. It is called
 // right before the process exits and never waits longer than 5 s.
 //
-//export SshmStop
-func SshmStop() {
+//export PosternStop
+func PosternStop() {
 	mu.Lock()
 	defer mu.Unlock()
 	if core == nil {
@@ -85,10 +85,10 @@ func SshmStop() {
 	}
 }
 
-// SshmFree frees a string returned by SshmStart.
+// PosternFree frees a string returned by PosternStart.
 //
-//export SshmFree
-func SshmFree(p *C.char) {
+//export PosternFree
+func PosternFree(p *C.char) {
 	C.free(unsafe.Pointer(p))
 }
 

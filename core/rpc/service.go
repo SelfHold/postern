@@ -1,4 +1,4 @@
-// Package rpc is the core's gRPC API for the app (proto/sshm.proto).
+// Package rpc is the core's gRPC API for the app (proto/postern.proto).
 package rpc
 
 import (
@@ -17,11 +17,11 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"sshmanager/core/cloudsync"
-	"sshmanager/core/fsys"
-	"sshmanager/core/hosts"
-	"sshmanager/core/rpc/pb"
-	"sshmanager/core/sshc"
+	"github.com/SelfHold/postern/core/fsys"
+	"github.com/SelfHold/postern/core/hosts"
+	"github.com/SelfHold/postern/core/rpc/pb"
+	"github.com/SelfHold/postern/core/shard"
+	"github.com/SelfHold/postern/core/sshc"
 )
 
 // Set at build time (-ldflags -X).
@@ -35,7 +35,7 @@ type Service struct {
 	pb.UnimplementedCoreServer
 
 	store    *hosts.Store
-	sync     *cloudsync.Syncer
+	sync     *shard.Syncer
 	local    fsys.FS
 	platform string
 
@@ -53,7 +53,7 @@ type remote struct {
 }
 
 // New builds the service. local is this device's file tree.
-func New(store *hosts.Store, syncer *cloudsync.Syncer, local fsys.FS, platform string) *Service {
+func New(store *hosts.Store, syncer *shard.Syncer, local fsys.FS, platform string) *Service {
 	s := &Service{
 		store:    store,
 		sync:     syncer,
@@ -63,7 +63,7 @@ func New(store *hosts.Store, syncer *cloudsync.Syncer, local fsys.FS, platform s
 		pool:     map[string]*remote{},
 	}
 	store.OnChange(func() { s.publish(&pb.Event{Kind: pb.Event_HOSTS}) })
-	syncer.OnStatus(func(cloudsync.Status) { s.publish(&pb.Event{Kind: pb.Event_SYNC}) })
+	syncer.OnStatus(func(shard.Status) { s.publish(&pb.Event{Kind: pb.Event_SYNC}) })
 	syncer.OnRekey(func(from, to string) {
 		s.poolMu.Lock()
 		if r, ok := s.pool[from]; ok {
@@ -155,7 +155,7 @@ func (s *Service) Events(_ *pb.Empty, stream grpc.ServerStreamingServer[pb.Event
 	}
 }
 
-func syncState(st cloudsync.Status) *pb.SyncState {
+func syncState(st shard.Status) *pb.SyncState {
 	return &pb.SyncState{
 		Phase:         pb.SyncState_Phase(st.Phase),
 		Enabled:       st.Enabled,
@@ -587,7 +587,7 @@ func progress(p fsys.Progress, done bool) *pb.TransferProgress {
 	}
 }
 
-// --- CloudSync -------------------------------------------------------
+// --- Shard -------------------------------------------------------
 
 func (s *Service) EnableSync(ctx context.Context, _ *pb.Empty) (*pb.SyncState, error) {
 	st, err := s.sync.Enable(ctx)

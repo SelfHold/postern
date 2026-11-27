@@ -1,6 +1,6 @@
 // This is a generated file - do not edit.
 //
-// Generated from sshm.proto.
+// Generated from postern.proto.
 
 // @dart = 3.3
 
@@ -16,11 +16,11 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'sshm.pb.dart' as $0;
+import 'postern.pb.dart' as $0;
 
-export 'sshm.pb.dart';
+export 'postern.pb.dart';
 
-@$pb.GrpcServiceName('sshm.v1.Core')
+@$pb.GrpcServiceName('selfhold.postern.v1.Core')
 class CoreClient extends $grpc.Client {
   /// The hostname for this service.
   static const $core.String defaultHost = '';
@@ -32,7 +32,7 @@ class CoreClient extends $grpc.Client {
 
   CoreClient(super.channel, {super.options, super.interceptors});
 
-  /// State: versions and CloudSync status.
+  /// State: versions and Shard status.
   $grpc.ResponseFuture<$0.State> getState(
     $0.Empty request, {
     $grpc.CallOptions? options,
@@ -49,7 +49,7 @@ class CoreClient extends $grpc.Client {
         options: options);
   }
 
-  /// --- hosts (synced through CloudSync when sync is on) -------------------
+  /// --- hosts (synced through Shard when sync is on) -------------------
   $grpc.ResponseFuture<$0.HostList> listHosts(
     $0.Empty request, {
     $grpc.CallOptions? options,
@@ -139,8 +139,8 @@ class CoreClient extends $grpc.Client {
         options: options);
   }
 
-  /// --- CloudSync ------------------------------------------------------
-  /// EnableSync asks CloudSync for pairing (if needed) and returns the code
+  /// --- Shard ------------------------------------------------------
+  /// EnableSync asks Shard for pairing (if needed) and returns the code
   /// to show; the result comes as a SYNC event.
   $grpc.ResponseFuture<$0.SyncState> enableSync(
     $0.Empty request, {
@@ -164,7 +164,7 @@ class CoreClient extends $grpc.Client {
     return $createUnaryCall(_$syncNow, request, options: options);
   }
 
-  /// RequestAccess asks CloudSync (while paired) for the shared server list
+  /// RequestAccess asks Shard (while paired) for the shared server list
   /// and the SSH keys of its safe; the code to show comes back.
   $grpc.ResponseFuture<$0.SyncState> requestAccess(
     $0.Empty request, {
@@ -173,8 +173,8 @@ class CoreClient extends $grpc.Client {
     return $createUnaryCall(_$requestAccess, request, options: options);
   }
 
-  /// SafeKeys lists the SSH keys of CloudSync's password safe (public part
-  /// only); needs sync on and the "ssh_keys" permission in CloudSync.
+  /// SafeKeys lists the SSH keys of Shard's password safe (public part
+  /// only); needs sync on and the "ssh_keys" permission in Shard.
   $grpc.ResponseFuture<$0.SafeKeyList> safeKeys(
     $0.Empty request, {
     $grpc.CallOptions? options,
@@ -185,83 +185,83 @@ class CoreClient extends $grpc.Client {
   // method descriptors
 
   static final _$getState = $grpc.ClientMethod<$0.Empty, $0.State>(
-      '/sshm.v1.Core/GetState',
+      '/selfhold.postern.v1.Core/GetState',
       ($0.Empty value) => value.writeToBuffer(),
       $0.State.fromBuffer);
   static final _$events = $grpc.ClientMethod<$0.Empty, $0.Event>(
-      '/sshm.v1.Core/Events',
+      '/selfhold.postern.v1.Core/Events',
       ($0.Empty value) => value.writeToBuffer(),
       $0.Event.fromBuffer);
   static final _$listHosts = $grpc.ClientMethod<$0.Empty, $0.HostList>(
-      '/sshm.v1.Core/ListHosts',
+      '/selfhold.postern.v1.Core/ListHosts',
       ($0.Empty value) => value.writeToBuffer(),
       $0.HostList.fromBuffer);
   static final _$saveHost = $grpc.ClientMethod<$0.Host, $0.Host>(
-      '/sshm.v1.Core/SaveHost',
+      '/selfhold.postern.v1.Core/SaveHost',
       ($0.Host value) => value.writeToBuffer(),
       $0.Host.fromBuffer);
   static final _$deleteHost = $grpc.ClientMethod<$0.HostRef, $0.Empty>(
-      '/sshm.v1.Core/DeleteHost',
+      '/selfhold.postern.v1.Core/DeleteHost',
       ($0.HostRef value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
   static final _$probeHostKey = $grpc.ClientMethod<$0.HostRef, $0.HostKey>(
-      '/sshm.v1.Core/ProbeHostKey',
+      '/selfhold.postern.v1.Core/ProbeHostKey',
       ($0.HostRef value) => value.writeToBuffer(),
       $0.HostKey.fromBuffer);
   static final _$trustHostKey = $grpc.ClientMethod<$0.TrustRequest, $0.Host>(
-      '/sshm.v1.Core/TrustHostKey',
+      '/selfhold.postern.v1.Core/TrustHostKey',
       ($0.TrustRequest value) => value.writeToBuffer(),
       $0.Host.fromBuffer);
   static final _$shell = $grpc.ClientMethod<$0.ShellIn, $0.ShellOut>(
-      '/sshm.v1.Core/Shell',
+      '/selfhold.postern.v1.Core/Shell',
       ($0.ShellIn value) => value.writeToBuffer(),
       $0.ShellOut.fromBuffer);
   static final _$listDir = $grpc.ClientMethod<$0.DirRequest, $0.DirListing>(
-      '/sshm.v1.Core/ListDir',
+      '/selfhold.postern.v1.Core/ListDir',
       ($0.DirRequest value) => value.writeToBuffer(),
       $0.DirListing.fromBuffer);
   static final _$makeDir = $grpc.ClientMethod<$0.PathRequest, $0.Empty>(
-      '/sshm.v1.Core/MakeDir',
+      '/selfhold.postern.v1.Core/MakeDir',
       ($0.PathRequest value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
   static final _$remove = $grpc.ClientMethod<$0.PathsRequest, $0.Empty>(
-      '/sshm.v1.Core/Remove',
+      '/selfhold.postern.v1.Core/Remove',
       ($0.PathsRequest value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
   static final _$rename = $grpc.ClientMethod<$0.RenameRequest, $0.Empty>(
-      '/sshm.v1.Core/Rename',
+      '/selfhold.postern.v1.Core/Rename',
       ($0.RenameRequest value) => value.writeToBuffer(),
       $0.Empty.fromBuffer);
   static final _$transfer =
       $grpc.ClientMethod<$0.TransferRequest, $0.TransferProgress>(
-          '/sshm.v1.Core/Transfer',
+          '/selfhold.postern.v1.Core/Transfer',
           ($0.TransferRequest value) => value.writeToBuffer(),
           $0.TransferProgress.fromBuffer);
   static final _$enableSync = $grpc.ClientMethod<$0.Empty, $0.SyncState>(
-      '/sshm.v1.Core/EnableSync',
+      '/selfhold.postern.v1.Core/EnableSync',
       ($0.Empty value) => value.writeToBuffer(),
       $0.SyncState.fromBuffer);
   static final _$disableSync = $grpc.ClientMethod<$0.Empty, $0.SyncState>(
-      '/sshm.v1.Core/DisableSync',
+      '/selfhold.postern.v1.Core/DisableSync',
       ($0.Empty value) => value.writeToBuffer(),
       $0.SyncState.fromBuffer);
   static final _$syncNow = $grpc.ClientMethod<$0.Empty, $0.SyncState>(
-      '/sshm.v1.Core/SyncNow',
+      '/selfhold.postern.v1.Core/SyncNow',
       ($0.Empty value) => value.writeToBuffer(),
       $0.SyncState.fromBuffer);
   static final _$requestAccess = $grpc.ClientMethod<$0.Empty, $0.SyncState>(
-      '/sshm.v1.Core/RequestAccess',
+      '/selfhold.postern.v1.Core/RequestAccess',
       ($0.Empty value) => value.writeToBuffer(),
       $0.SyncState.fromBuffer);
   static final _$safeKeys = $grpc.ClientMethod<$0.Empty, $0.SafeKeyList>(
-      '/sshm.v1.Core/SafeKeys',
+      '/selfhold.postern.v1.Core/SafeKeys',
       ($0.Empty value) => value.writeToBuffer(),
       $0.SafeKeyList.fromBuffer);
 }
 
-@$pb.GrpcServiceName('sshm.v1.Core')
+@$pb.GrpcServiceName('selfhold.postern.v1.Core')
 abstract class CoreServiceBase extends $grpc.Service {
-  $core.String get $name => 'sshm.v1.Core';
+  $core.String get $name => 'selfhold.postern.v1.Core';
 
   CoreServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.Empty, $0.State>(

@@ -4,13 +4,13 @@ import '../../core/i18n.dart';
 import '../../core/theme/colors.dart';
 import '../../core/theme/typography.dart';
 import '../../data/core.dart';
-import '../../data/rpc/gen/sshm.pb.dart' as pb;
+import '../../data/rpc/gen/postern.pb.dart' as pb;
 import '../common/hm.dart';
 
 /// Makes sure the server's key is trusted before connecting: a first
 /// connection shows the fingerprint to accept; a changed key is a warning
 /// that must be confirmed explicitly. The trusted key is part of the host,
-/// so it is synced (and shared with other apps through CloudSync).
+/// so it is synced (and shared with other apps through Shard).
 Future<bool> ensureTrusted(BuildContext context, Host h) async {
   final pb.HostKey k;
   try {
