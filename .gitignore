@@ -1,0 +1,20 @@
+# Build outputs
+builds/
+app/build/
+app/linux/flutter/ephemeral/
+app/android/app/libs/
+*.aar
+*.a
+
+# Tool state and local config
+app/.dart_tool/
+app/.flutter-plugins-dependencies
+app/android/local.properties
+.idea/
+.vscode/
+*.iml
+*.log
+
+# Local notes for coding agents (not published)
+CLAUDE.md
+.claude/
