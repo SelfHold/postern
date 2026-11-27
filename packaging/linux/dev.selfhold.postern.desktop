@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Postern
+GenericName=SSH Client
+Comment=SSH terminal and two-panel file manager
+Exec=/usr/bin/postern
+Icon=dev.selfhold.postern
+Terminal=false
+Categories=Network;RemoteAccess;
+Keywords=ssh;sftp;terminal;remote;files;
+StartupWMClass=dev.selfhold.postern
+StartupNotify=true

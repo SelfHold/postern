@@ -262,7 +262,8 @@ Future<T?> pickOption<T>(
       final below = screen.height - origin.dy - size.height - 16;
       final above = origin.dy - 16;
       final up = below < 240 && above > below;
-      final maxHeight = math.min(screen.height * 0.6, math.max(up ? above : below, 120.0));
+      // Never taller than the free room, so the panel stays inside the window.
+      final maxHeight = math.min(screen.height * 0.6, math.max(up ? above : below, 0.0));
       final width = size.width.clamp(180.0, 320.0);
       return CallbackShortcuts(
         bindings: {const SingleActivator(LogicalKeyboardKey.escape): () => Navigator.pop(ctx)},

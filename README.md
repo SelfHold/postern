@@ -89,6 +89,8 @@ Prerequisites:
 
 ```bash
 make build-linux     # the app with the core linked in → builds/linux/postern
+make package-linux  # deb, rpm and Arch packages in builds/packages (PKG=archlinux for one)
+make icons          # re-render the PNG icons from the SVGs in branding/ (rsvg-convert)
 make app-run         # run the app in debug mode
 make test            # Go tests, incl. an end-to-end SSH/SFTP test on a built-in server
 make vet             # go vet

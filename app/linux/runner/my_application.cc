@@ -30,6 +30,17 @@ static void my_application_activate(GApplication* application) {
   gtk_window_set_title(window, "Postern");
   gtk_window_set_decorated(window, FALSE);
 
+  // Window icon (X11 taskbars). GNOME on Wayland takes the icon from the
+  // .desktop entry of the same id (installed by the Linux package).
+  g_autofree gchar* exe = g_file_read_link("/proc/self/exe", nullptr);
+  if (exe != nullptr) {
+    g_autofree gchar* dir = g_path_get_dirname(exe);
+    g_autofree gchar* icon = g_build_filename(
+        dir, "data", "flutter_assets", "assets", "icon", "postern.png",
+        nullptr);
+    gtk_window_set_icon_from_file(window, icon, nullptr);
+  }
+
   gtk_window_set_default_size(window, 1440, 900);
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();

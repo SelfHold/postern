@@ -295,7 +295,10 @@ class _Panel extends StatelessWidget {
               decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: HmColors.border))),
               child: Row(
                 children: [
-                  HmButton(p.title(), small: true, icon: p.remote ? Icons.dns_outlined : Icons.computer, variant: active ? HmVariant.cyan : HmVariant.neutral, onPressed: () => _pickSide(context)),
+                  // Builder: the dropdown anchors to the button, not to the whole panel.
+                  Builder(
+                    builder: (btn) => HmButton(p.title(), small: true, icon: p.remote ? Icons.dns_outlined : Icons.computer, variant: active ? HmVariant.cyan : HmVariant.neutral, onPressed: () => _pickSide(btn)),
+                  ),
                   const SizedBox(width: Hm.gapXxs),
                   Expanded(
                     child: Text(p.path, style: HmText.small, overflow: TextOverflow.ellipsis),
